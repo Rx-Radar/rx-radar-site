@@ -1,10 +1,65 @@
 .main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
+  background-color: white;
+}
+
+.newButton {
+  display: inline-flex; /* Use flexbox */
+  align-items: center; /* Vertically center the items */
+  justify-content: center; /* Horizontally center the items */
+  gap: 8px; /* Optional: adds space between the SVG icon and the text */
+  padding: 10px 20px; /* Adjust button padding as needed */
+  border: none; /* Optional: removes the border */
+  background-color: #AA98A9; /* Example background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Adjust text size as needed */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  border-radius: 5px; /* Optional: rounds the corners of the button */
+}
+
+.newButton:hover {
+  background-color: #40826D;
+}
+
+.h1 {
+  font-size: 2rem; /* or 32px, depending on your preference */
+}
+
+
+.searchInput {
+  min-width: 100px;
+  padding: 10px 15px; /* Padding inside the input */
+  font-size: 16px; /* Adjust the font size as needed */
+  /* border: 2px solid #007BFF; Border color */
+  border-radius: 5px; /* Rounded corners */
+  border-width: 0;
+  background-color: #F5F5F5;
+  outline: none; /* Removes the default focus outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus */
+}
+
+/* Circle style */
+.circlePulse {
+  width: 12px; /* Circle size */
+  height: 12px; /* Circle size */
+  background-color: green; /* Initial circle color */
+  border-radius: 50%; /* Makes the div a circle */
+  animation: pulse 2s infinite; /* Applies the animation */
+}
+
+/* Keyframes for the pulsing effect */
+@keyframes pulse {
+  0% { background-color: green; }
+  50% { background-color: lightgreen; } /* Midway color */
+  100% { background-color: green; } /* Returns to initial color */
+}
+
+.searchInput::placeholder {
+  color: #ccc; /* Placeholder text color */
 }
 
 .description {
