@@ -5,6 +5,7 @@
   align-items: center;
   min-height: 100vh;
   background-color: white;
+  font-family: 'Inter', sans-serif;
 }
 
 .newButton {
@@ -34,28 +35,11 @@
   min-width: 100px;
   padding: 10px 15px; /* Padding inside the input */
   font-size: 16px; /* Adjust the font size as needed */
-  /* border: 2px solid #007BFF; Border color */
   border-radius: 5px; /* Rounded corners */
   border-width: 0;
   background-color: #F5F5F5;
   outline: none; /* Removes the default focus outline */
   transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus */
-}
-
-/* Circle style */
-.circlePulse {
-  width: 12px; /* Circle size */
-  height: 12px; /* Circle size */
-  background-color: green; /* Initial circle color */
-  border-radius: 50%; /* Makes the div a circle */
-  animation: pulse 2s infinite; /* Applies the animation */
-}
-
-/* Keyframes for the pulsing effect */
-@keyframes pulse {
-  0% { background-color: green; }
-  50% { background-color: lightgreen; } /* Midway color */
-  100% { background-color: green; } /* Returns to initial color */
 }
 
 .searchInput::placeholder {
@@ -70,7 +54,6 @@
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
-  font-family: var(--font-mono);
 }
 
 .description a {
