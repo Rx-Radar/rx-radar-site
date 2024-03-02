@@ -75,7 +75,9 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
 
   // on pharmacy pin select
   const onPharmacyPinClick = (pharmacy: Pharmacy, event: any) => {
-    event.stopPropagation(); // stops the click from causing a map selection
+    if (!pharmacy.selected) {
+      event.stopPropagation(); // stops the click from causing a map selection
+    }
 
     // center the selected pin on the map
     if (map) {
@@ -104,19 +106,21 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
 
   // return the map component
   return isLoaded && (
-    <GoogleMap
-    mapContainerStyle={{width, height}}
-    center={center}
-    zoom={10}
-    options={mapStyles}
-    onClick={onMapClick}
-    onLoad={(map) => setMap(map)}
-    >
-      {/* pharmacy pins */}
-      {pharmacies.map((pharmacy) => {
-        return <PharmacyPin key={pharmacy.id} pharmacy={pharmacy} onPharmacyPinClick={onPharmacyPinClick}/>
-      })}        
-    </GoogleMap>
+    <div style={{width, height, margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <GoogleMap
+      mapContainerStyle={{height: '98vh', width: '100%', borderRadius: 10}}
+      center={center}
+      zoom={10}
+      options={mapStyles}
+      onClick={onMapClick}
+      onLoad={(map) => setMap(map)}
+      >
+        {/* pharmacy pins */}
+        {pharmacies.map((pharmacy) => {
+          return <PharmacyPin key={pharmacy.id} pharmacy={pharmacy} onPharmacyPinClick={onPharmacyPinClick}/>
+        })}        
+      </GoogleMap>
+    </div>
   );
 } 
 

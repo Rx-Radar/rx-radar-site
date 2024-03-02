@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
 
-      <div style={{height: '100vh', width: '40vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 15}}>
+      <div style={{height: '100vh', width: '40vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10}}>
 
         {/* title */}
         <div style={{justifyContent: 'space-between', display: 'flex', alignItems: 'center', width: '100%'}}>
@@ -124,10 +124,15 @@ export default function Home() {
         
         {/* search results scroll view*/}
         { selectedPharmacy ? 
-          <div style={{width: 300, height: 500, backgroundColor: 'green'}}>
-
+          <div style={{height: '100%', border: '2px solid #F2F3F4', width: '100%', borderRadius: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 5, paddingRight: 5, marginTop: 20, display: 'flex', flexDirection: 'column'}}>
+            <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', textAlign: 'center', alignItems: 'center'}}>
+              <svg onClick={() => onSelectPharmacy()} style={{justifySelf: 'flex-start'}} width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h2 style={{color: 'black', width: '100%'}}>{selectedPharmacy.name}</h2>
+            </div>
           </div> :
-          <div style={{width: '95%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none'}}>
+          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none'}}>
             {pharmacies.map((pharmacy) => (
               <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
             ))}
@@ -138,10 +143,10 @@ export default function Home() {
       </div>
 
       {/* map componenet */}
-      <Map height="100vh" width="60vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError}/>
+      <Map height="100vh" width="80vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError}/>
       
       {/* location elements floating over map */}
-      <div style={{position: 'absolute', top: 20, left: '41vw', zIndex: 10000, flexDirection: 'column'}}>
+      <div style={{position: 'absolute', top: 20, left: '34vw', zIndex: 10000, flexDirection: 'column'}}>
 
         {/* location testing disclaimer */}
         <p style={{backgroundColor: 'black', color: 'white', fontSize: 10, display: 'flex', flexDirection: 'column', padding: 6, borderRadius: 6, alignItems: 'center'}}>

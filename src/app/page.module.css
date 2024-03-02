@@ -3,9 +3,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100vw;
   background-color: white;
   font-family: 'Inter', sans-serif;
+  /* padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh; */
 }
 
 .newButton {
