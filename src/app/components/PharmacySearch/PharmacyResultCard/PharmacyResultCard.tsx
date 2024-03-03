@@ -1,3 +1,4 @@
+import { Tooltip } from "react-tooltip";
 import { Pharmacy } from "../../Pharmacy/Pharmacy";
 
 import styles from "./PharmacyResultCard.module.css"
@@ -8,6 +9,11 @@ interface PharmacyResultCardProps {
     pharmacyCardSelect: (pharmacy: Pharmacy) => void;
 }
 
+/**
+ * Pharmacy Result Card 
+ * @param PharmacyResultCardProps
+ * @returns Pharmacy Result Card 
+ */
 export const PharmacyResultCard: React.FC<PharmacyResultCardProps> = ({ pharmacy, pharmacyCardSelect }) => {
 
     return (
@@ -20,9 +26,11 @@ export const PharmacyResultCard: React.FC<PharmacyResultCardProps> = ({ pharmacy
                   <p style={{fontSize: 15, fontWeight: '500', color: 'grey', marginTop: 2}}>{pharmacy.phone}</p>
                 </div>
 
+                {/* distance in miles */}
                 <div style={{alignItems: 'center'}}>
-                  <p style={{backgroundColor: '#CFE2FA', padding: 5, borderRadius: 8, fontWeight: '600', color: '#468FEA', border: '2px solid #468FEA'}}>5 mi</p>
+                    <p style={{backgroundColor: '#CFE2FA', padding: 5, borderRadius: 8, fontWeight: '600', color: '#468FEA', border: '2px solid #468FEA'}}>5 mi</p>
                 </div>
+                
             </div>
 
             <div style={{display: 'flex', alignItems: 'center', marginTop: 10}}>

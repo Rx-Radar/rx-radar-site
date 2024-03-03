@@ -1,9 +1,16 @@
 
 
-.backArrow {
-    justify-self: flex-start;
-}
-
-.backArrow:hover {
-    
+.selectedPharmacyCard {
+    height: 100%;
+    width: 100%;
+    border: 2px solid #F2F3F4;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
