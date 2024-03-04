@@ -91,7 +91,7 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
   // return a loading screen while location loading or if there is a location related error
   if (!locationFetched || !isLoaded || error) {
     return (
-      <div style={{width, height, justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+      <div style={{width, height, justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', marginRight: 12,}}>
         <PulseLoader/>
             
         {/* if there is a user location error, display */}
@@ -121,14 +121,13 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
         })}        
       </GoogleMap>
 
-
       {/* location elements floating over map */}
-      <div style={{position: 'absolute', top: 80, left: '32vw', zIndex: 10000, flexDirection: 'column'}}>
+      <div style={{position: 'absolute', top: 70, left: '31vw', zIndex: 10000, flexDirection: 'column'}}>
 
         {/* location testing disclaimer */}
-        <p style={{backgroundColor: 'black', color: 'white', fontSize: 10, display: 'flex', flexDirection: 'column', padding: 6, borderRadius: 6, alignItems: 'center'}}>
+        {/* <p style={{backgroundColor: 'black', color: 'white', fontSize: 10, display: 'flex', flexDirection: 'column', padding: 6, borderRadius: 6, alignItems: 'center'}}>
         * Currently Rx-Radar only works in Troy and adjacent towns
-        </p>
+        </p> */}
 
         {/* current location tag */}
         <div style={{backgroundColor: 'black', padding: 8, borderRadius: 10, display: 'inline-flex', marginTop: 8}}>

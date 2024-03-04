@@ -24,7 +24,6 @@ let _pharmacies: Pharmacy[] = [
   {id: 6, name: 'Wallgreens South End', phone: '203-454-4564', location: {lat: 42.8584, lng: -73.683576}, selected: false}
 ];
 
-
 export default function Home() {
   const [locationError, setLocationError] = useState<string|undefined>(undefined); // stores user location error
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>(_pharmacies); // store list of pharmacies in search
@@ -122,7 +121,7 @@ export default function Home() {
         {/* search results scroll view*/}
         { selectedPharmacy ? 
           <SelectedPharmacyCard pharmacy={selectedPharmacy} onSelectPharmacy={onSelectPharmacy}/> :
-          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh'}}>
+          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh', }}>
             {pharmacies.map((pharmacy) => (
               <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
             ))}
