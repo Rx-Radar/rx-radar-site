@@ -73,30 +73,22 @@ export default function Home() {
   return (
     <main className={styles.main}>
 
-      <div style={{height: '100vh', width: '40vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10}}>
-
+      {/* header */}
+      <div style={{display: 'flex', minWidth: '100vw', justifyContent: 'space-between', alignItems: 'center', height: '9vh', paddingLeft: 10, paddingRight: 15, }}>
         {/* title */}
-        <div style={{justifyContent: 'space-between', display: 'flex', alignItems: 'center', width: '100%'}}>
-          <h1 style={{color: 'black', width: 'fit-content'}}>Rx-Radar</h1>
-          <div style={{display: 'flex', width: 'fit-content', gap: 10, alignItems: 'center'}}>
-            <h3 style={{color: 'black', width: 'fit-content'}}>About</h3>
-          </div>
-        </div>
-
-        {/* page divider */}
-        <div style={{height: 3, width: '100%', borderRadius: 1, marginTop: 10, backgroundColor: '#F5F5F5'}}/>
+        <h1 style={{color: 'black'}}>Rx-Radar</h1>
 
         {/* search */}
-        <div style={{marginTop: 15, gap: 10, display: 'flex', justifyContent: 'start', width: '100%'}}>
+        <div style={{gap: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingRight: 40, paddingLeft: 40, padding: 10}}>
 
           {/* medication text input */}
-          <input type="text" placeholder="Search for medication..." className={styles.searchInput} style={{width: '50%'}}/>
+          <input type="text" placeholder="Search for medication..." className={styles.searchInput}/>
 
           {/* location text input box */}
-          <a data-tooltip-id="my-tooltip" data-tooltip-content="Check back soon, we're adding new locations.">
-            <div style={{display: 'inline-flex', padding: 10, paddingRight: 50, borderRadius: 5, backgroundColor: '#F5F5F5', alignItems: 'center', outline: 'none' }}>
+          <a data-tooltip-id="my-tooltip" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
+            <div style={{display: 'inline-flex', minWidth: 200, paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10, borderRadius: 5, backgroundColor: '#F5F5F5', alignItems: 'center', outline: 'none' }}>
 
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -108,9 +100,15 @@ export default function Home() {
 
           <button className={styles.newButton}>Search</button>
         </div>
+      </div>
+
+
+      {/* main body contents */}
+      <div style={{display: 'flex', width: '100vw', overflowY: 'clip', height: '91vh', }}>
+        <div style={{height: '100vh', width: '30vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10, paddingTop: 0}}>
 
         {/* search results title */}
-        <div style={{display: 'flex', width: '100%', marginTop: 15}}>
+        <div style={{display: 'flex', width: '100%' }}>
           <div style={{display: 'flex', alignItems: 'center'}}>
             <h3 style={{color: 'black', marginLeft: 5}}> results for</h3>  
             <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>300mg</div>
@@ -121,23 +119,21 @@ export default function Home() {
           </div>
         </div>
 
-
-        {/* page divider */}
-        <div style={{height: 3, width: '100%', borderRadius: 1, marginTop: 15, backgroundColor: '#F5F5F5',}}/>
-        
         {/* search results scroll view*/}
         { selectedPharmacy ? 
           <SelectedPharmacyCard pharmacy={selectedPharmacy} onSelectPharmacy={onSelectPharmacy}/> :
-          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none'}}>
+          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh'}}>
             {pharmacies.map((pharmacy) => (
               <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
             ))}
           </div>
         }
-      </div>
+        </div>
 
-      {/* map componenet */}
-      <Map height="100vh" width="80vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError}/>    
+        {/* map componenet */}
+        <Map height="89.5vh" width="70vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError}/>
+
+      </div>    
     </main>
   );
 }

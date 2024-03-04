@@ -1,6 +1,6 @@
 .main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   max-height: 100vh;
@@ -37,7 +37,7 @@
 
 
 .searchInput {
-  min-width: 100px;
+  min-width: 350px;
   padding: 10px 15px; /* Padding inside the input */
   font-size: 16px; /* Adjust the font size as needed */
   border-radius: 5px; /* Rounded corners */

@@ -106,9 +106,9 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
 
   // return the map component
   return isLoaded && (
-    <div style={{width, height, margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{width, height, marginRight: 12, marginTop: 0, display: 'flex', justifyContent: 'center'}}>
       <GoogleMap
-      mapContainerStyle={{height: '98vh', width: '100%', borderRadius: 10}}
+      mapContainerStyle={{height, width: '100%', borderRadius: 10}}
       center={center}
       zoom={10}
       options={mapStyles}
@@ -123,7 +123,7 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
 
 
       {/* location elements floating over map */}
-      <div style={{position: 'absolute', top: 20, left: '34vw', zIndex: 10000, flexDirection: 'column'}}>
+      <div style={{position: 'absolute', top: 80, left: '32vw', zIndex: 10000, flexDirection: 'column'}}>
 
         {/* location testing disclaimer */}
         <p style={{backgroundColor: 'black', color: 'white', fontSize: 10, display: 'flex', flexDirection: 'column', padding: 6, borderRadius: 6, alignItems: 'center'}}>
