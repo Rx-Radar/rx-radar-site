@@ -46,6 +46,7 @@
   background-color: #F5F5F5;
   outline: none; /* Removes the default focus outline */
   transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus */
+  caret-color: black;
 }
 
 .searchInput::placeholder {

@@ -106,7 +106,7 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
 
   // return the map component
   return isLoaded && (
-    <div style={{width, height, marginRight: 12, marginTop: 0, display: 'flex', justifyContent: 'center'}}>
+    <div className={styles.map} style={{width, height, marginRight: 12, marginTop: 0, display: 'flex', justifyContent: 'center'}}>
       <GoogleMap
       mapContainerStyle={{height, width: '100%', borderRadius: 10}}
       center={center}
@@ -140,6 +140,7 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
       </div>
     </div>
   );
+
 } 
 
 

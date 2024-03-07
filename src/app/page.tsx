@@ -103,30 +103,30 @@ export default function Home() {
 
 
       {/* main body contents */}
-      <div style={{display: 'flex', width: '100vw', overflowY: 'clip', height: '91vh', }}>
-        <div style={{height: '100vh', width: '30vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10, paddingTop: 0}}>
+      <div style={{display: 'flex', width: '100vw', overflowY: 'clip', height: '91vh', justifyContent: 'center',}}>
+        <div style={{height: '100vh', width: '32vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10, paddingTop: 0}}>
 
-        {/* search results title */}
-        <div style={{display: 'flex', width: '100%' }}>
-          <div style={{display: 'flex', alignItems: 'center'}}>
-            <h3 style={{color: 'black', marginLeft: 5}}> results for</h3>  
-            <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>300mg</div>
-            <h3 style={{color: 'black', marginLeft: 5}}>of</h3>  
-            <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>Adderall</div>
-            <h3 style={{marginLeft: 5, color: 'black',}}>within</h3>
-            <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>5 mi</div>
+          {/* search results title */}
+          <div style={{display: 'flex', width: '100%' }}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <h3 style={{color: 'black', marginLeft: 5}}> results for</h3>  
+              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>300mg</div>
+              <h3 style={{color: 'black', marginLeft: 5}}>of</h3>  
+              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>Adderall</div>
+              <h3 style={{marginLeft: 5, color: 'black',}}>within</h3>
+              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>5 mi</div>
+            </div>
           </div>
-        </div>
 
-        {/* search results scroll view*/}
-        { selectedPharmacy ? 
-          <SelectedPharmacyCard pharmacy={selectedPharmacy} onSelectPharmacy={onSelectPharmacy}/> :
-          <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh', }}>
-            {pharmacies.map((pharmacy) => (
-              <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
-            ))}
-          </div>
-        }
+          {/* search results scroll view*/}
+          { selectedPharmacy ? 
+            <SelectedPharmacyCard pharmacy={selectedPharmacy} onSelectPharmacy={onSelectPharmacy}/> :
+            <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh', }}>
+              {pharmacies.map((pharmacy) => (
+                <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
+              ))}
+            </div>
+          }
         </div>
 
         {/* map componenet */}

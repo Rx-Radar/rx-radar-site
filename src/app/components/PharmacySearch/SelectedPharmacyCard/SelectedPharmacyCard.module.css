@@ -14,3 +14,19 @@
     flex-direction: column;
     align-items: center;
 }
+
+/* clipboard copyable pharmacy info */
+.copyToClipboardInfo {
+    display: flex;
+    margin-top: 4px;
+    align-items: center; 
+    width: 95%;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* clipboard copyable pharmacy info on hover */
+.copyToClipboardInfo:hover {
+    background-color: #CFE2FA;
+    border-radius: 8;
+}
