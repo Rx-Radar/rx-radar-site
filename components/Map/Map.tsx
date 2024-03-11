@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
 import styles from "./Map.module.css";
 
 import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
@@ -14,13 +14,20 @@ interface MapProps {
     height: string; // latitude
     pharmacies: Pharmacy[]; // list of pharmacies
     error?: string; // map/location error if any
-    selectPharmacy: (pharmacy?: Pharmacy) => void;
+    selectPharmacy: (pharmacy?: Pharmacy) => void; // selects pharmacy from list
+    map: google.maps.Map | undefined; // map reference
+    setMap: Dispatch<SetStateAction<google.maps.Map | undefined>>; // setter for map reference
 }
 
-export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, selectPharmacy }) => {
+/**
+ * Map: map pane and function
+ * @param MapProps 
+ * @returns React functional component
+ */
+export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, selectPharmacy, map, setMap }) => {
   const [center, setCenter] = useState({lat: 42.7284, lng: -73.687576});
   const [locationFetched, setLocationFetched] = useState(false);
-  const [map, setMap] = useState<google.maps.Map>(); // map ref
+
 
   // loads google map
   const { isLoaded } = useJsApiLoader({
@@ -140,9 +147,25 @@ export const Map: React.FC<MapProps> = ({ width, height, pharmacies, error, sele
       </div>
     </div>
   );
-
 } 
 
+// parameters for focus map on pharmacy
+interface focusMapOnPharmacyParams {
+  // selectPharmacy: (pharmacy?: Pharmacy) => void;
+  map: google.maps.Map | undefined;
+  pharmacy: Pharmacy;
+}
+/**
+ * focusMapOnPharmacy: centers map around selected pharamcy
+ * @param focusMapOnPharmacyParams 
+ */
+export const focusMapOnPharmacy: (params: focusMapOnPharmacyParams) => void = ({ map, pharmacy }) => {
+  // center the selected pin on the map
+  if (map) {
+    const pin = new window.google.maps.LatLng(pharmacy.location.lat, pharmacy.location.lng);
+    map.panTo(pin);
+  }
+}
 
 // google maps style parameter
 const mapStyles = {

@@ -12,4 +12,5 @@ export interface Pharmacy {
     location: Location;
     phone: string;
     selected: boolean;
+    address: string;
 }

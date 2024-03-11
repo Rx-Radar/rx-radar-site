@@ -5,14 +5,10 @@
     width: 100%;
     border: 2px solid #F2F3F4;
     border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
 }
 
 /* clipboard copyable pharmacy info */
@@ -20,13 +16,25 @@
     display: flex;
     margin-top: 4px;
     align-items: center; 
-    width: 95%;
+    width: 100%;
     padding: 10px;
     border-radius: 8px;
+    justify-content: space-between;
 }
 
 /* clipboard copyable pharmacy info on hover */
 .copyToClipboardInfo:hover {
-    background-color: #CFE2FA;
+    background-color: #F0F8FF;
     border-radius: 8;
+}
+
+.clipboardIcon {
+    opacity: 0;
+    transition: opacity 0.16s ease-in-out;
+}
+
+/* clipboard svg on hover */
+.copyToClipboardInfo:hover .clipboardIcon {
+    display: block;
+    opacity: 1;
 }

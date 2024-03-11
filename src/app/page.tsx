@@ -9,25 +9,27 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from './firebase-config';
 import { Tooltip } from 'react-tooltip'
 
-import { Map } from "./components/Map/Map";
-import { Pharmacy } from "./components/Pharmacy/Pharmacy";
-import { PharmacyResultCard } from "./components/PharmacySearch/PharmacyResultCard/PharmacyResultCard";
-import { SelectedPharmacyCard } from "./components/PharmacySearch/SelectedPharmacyCard/SelectedPharmacyCard";
+import { Map, focusMapOnPharmacy } from "../../components/Map/Map";
+import { Pharmacy } from "../../components/Pharmacy/Pharmacy";
+import { PharmacyResultCard } from "../../components/PharmacySearch/PharmacyResultCard/PharmacyResultCard";
+import { SelectedPharmacyCard } from "../../components/PharmacySearch/SelectedPharmacyCard/SelectedPharmacyCard";
+import { MedicationSearchInput } from "../../components/PharmacySearch/MedicationSearchInput/MedicationSearchInput";
 
 
 let _pharmacies: Pharmacy[] = [
-  {id: 1, name: 'CVS Boylston', phone: '203-454-4564', location: {lat: 42.7284, lng: -73.587576}, selected: false}, 
-  {id: 2, name: 'Wallgreens Brookline', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.587576}, selected: false}, 
-  {id: 3, name: 'CVS Norwalk', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.787576}, selected: false}, 
-  {id: 4, name: 'Duane Reade', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.687576}, selected: false}, 
-  {id: 5, name: 'CVS Allston', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.787576}, selected: false}, 
-  {id: 6, name: 'Wallgreens South End', phone: '203-454-4564', location: {lat: 42.8584, lng: -73.683576}, selected: false}
+  {id: 1, name: 'CVS Boylston', phone: '203-454-4564', location: {lat: 42.7284, lng: -73.587576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
+  {id: 2, name: 'Wallgreens Brookline', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.587576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
+  {id: 3, name: 'CVS Norwalk', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.787576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
+  {id: 4, name: 'Duane Reade', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.687576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
+  {id: 5, name: 'CVS Allston', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.787576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
+  {id: 6, name: 'Wallgreens South End', phone: '203-454-4564', location: {lat: 42.8584, lng: -73.683576}, selected: false, address: '10 hillside rd, westport ct, 06880'}
 ];
 
 export default function Home() {
   const [locationError, setLocationError] = useState<string|undefined>(undefined); // stores user location error
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>(_pharmacies); // store list of pharmacies in search
   const [selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy|undefined>();
+  const [map, setMap] = useState<google.maps.Map>(); // map ref
 
   // handles selection and focusing of a pharmacy
   const onSelectPharmacy = (pharmacy?: Pharmacy) => {
@@ -41,21 +43,18 @@ export default function Home() {
       }));
 
       setSelectedPharmacy(pharmacy); // set selected pharmacy
-    } else {
-      // updated list of pharmacies to all be diselected
-      // update list of pharmacies with selected pharmacy
+      focusMapOnPharmacy({map, pharmacy}) // center and zoom map on selected pharmacy
+    } else { // diselect all pharmacies
       updatedList = pharmacies.map(_pharmacy => ({
         ..._pharmacy, // Spread the existing properties
         selected: false, 
       }));
-
-      setSelectedPharmacy(undefined); // set selected pharmacy to be nothing
+      setSelectedPharmacy(undefined); // set selected pharmacy to undefined
     }
-
     setPharmacies(updatedList); // update list 
-
-
   }
+
+
 
   useEffect(() => {
     // const fetchResults = async () => {
@@ -73,7 +72,7 @@ export default function Home() {
     <main className={styles.main}>
 
       {/* header */}
-      <div style={{display: 'flex', minWidth: '100vw', justifyContent: 'space-between', alignItems: 'center', height: '9vh', paddingLeft: 10, paddingRight: 15, }}>
+      <div style={{display: 'flex', minWidth: '100vw', justifyContent: 'space-between', alignItems: 'center', height: 65, paddingLeft: 10, paddingRight: 15, }}>
         {/* title */}
         <h1 style={{color: 'black'}}>Rx-Radar</h1>
 
@@ -81,7 +80,7 @@ export default function Home() {
         <div style={{gap: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingRight: 40, paddingLeft: 40, padding: 10}}>
 
           {/* medication text input */}
-          <input type="text" placeholder="Search for medication..." className={styles.searchInput}/>
+          <MedicationSearchInput />
 
           {/* location text input box */}
           <a data-tooltip-id="my-tooltip" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
@@ -130,7 +129,7 @@ export default function Home() {
         </div>
 
         {/* map componenet */}
-        <Map height="89.5vh" width="70vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError}/>
+        <Map height="89.5vh" width="70vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError} map={map} setMap={setMap}/>
 
       </div>    
     </main>
