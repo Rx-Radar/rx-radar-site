@@ -1,138 +1,86 @@
+// index page
+
 'use client';
 
-import styles from "./page.module.css";
+import Link from 'next/link';
+import styles from './page.module.css';
+import { useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
-import { getDistance } from 'geolib';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
-import { collection, getDocs } from "firebase/firestore"; 
-import { db } from './firebase-config';
-import { Tooltip } from 'react-tooltip'
-
-import { Map, focusMapOnPharmacy } from "../../components/Map/Map";
-import { Pharmacy } from "../../components/Pharmacy/Pharmacy";
-import { PharmacyResultCard } from "../../components/PharmacySearch/PharmacyResultCard/PharmacyResultCard";
-import { SelectedPharmacyCard } from "../../components/PharmacySearch/SelectedPharmacyCard/SelectedPharmacyCard";
-import { MedicationSearchInput } from "../../components/PharmacySearch/MedicationSearchInput/MedicationSearchInput";
+import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 
 
-let _pharmacies: Pharmacy[] = [
-  {id: 1, name: 'CVS Boylston', phone: '203-454-4564', location: {lat: 42.7284, lng: -73.587576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
-  {id: 2, name: 'Wallgreens Brookline', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.587576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
-  {id: 3, name: 'CVS Norwalk', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.787576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
-  {id: 4, name: 'Duane Reade', phone: '203-454-4564', location: {lat: 42.5284, lng: -73.687576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
-  {id: 5, name: 'CVS Allston', phone: '203-454-4564', location: {lat: 42.8284, lng: -73.787576}, selected: false, address: '10 hillside rd, westport ct, 06880'}, 
-  {id: 6, name: 'Wallgreens South End', phone: '203-454-4564', location: {lat: 42.8584, lng: -73.683576}, selected: false, address: '10 hillside rd, westport ct, 06880'}
-];
+export default function Index() {
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
 
-export default function Home() {
-  const [locationError, setLocationError] = useState<string|undefined>(undefined); // stores user location error
-  const [pharmacies, setPharmacies] = useState<Pharmacy[]>(_pharmacies); // store list of pharmacies in search
-  const [selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy|undefined>();
-  const [map, setMap] = useState<google.maps.Map>(); // map ref
+  // width="304" height="70"
 
-  // handles selection and focusing of a pharmacy
-  const onSelectPharmacy = (pharmacy?: Pharmacy) => {
-    let updatedList: Pharmacy[]|undefined;
+  return <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', alignItems: 'center', padding: 10, backgroundColor: 'white', color: 'black'}}>
+    
+    <div style={{width: '100%', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <RxRadarLogoBeacon />
+    </div>
 
-    if (pharmacy) {
-      // update list of pharmacies with selected pharmacy
-      updatedList = pharmacies.map(_pharmacy => ({
-        ..._pharmacy, // Spread the existing properties
-        selected: _pharmacy.id === pharmacy.id, 
-      }));
+    <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+      
+      {/* main row contents */}
+      <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 200}}>
 
-      setSelectedPharmacy(pharmacy); // set selected pharmacy
-      focusMapOnPharmacy({map, pharmacy}) // center and zoom map on selected pharmacy
-    } else { // diselect all pharmacies
-      updatedList = pharmacies.map(_pharmacy => ({
-        ..._pharmacy, // Spread the existing properties
-        selected: false, 
-      }));
-      setSelectedPharmacy(undefined); // set selected pharmacy to undefined
-    }
-    setPharmacies(updatedList); // update list 
-  }
+        {/* left box (content) */}
+        <div style={{padding: 10, height: 'fit-content', width: '40vw', minWidth: 400,}}>
+          <p style={{fontSize: 42, fontWeight: '700'}}>we find what pharmacies have your 💊 in stock</p>
+          <p style={{fontSize: 42, fontWeight: '500', marginTop: 12, color: '#FFB788', wordSpacing: '0%'}}>so you can find something else to complain about</p>
+        </div>
 
+        {/* right box (input form)*/}
+        <div>
+          <div style={{padding: 10, minWidth: 400, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
 
+            <input className={styles.searchInput} style={{minWidth: 400}} placeholder="Medication Name"/>
 
-  useEffect(() => {
-    // const fetchResults = async () => {
-    //   const querySnapshot = await getDocs(collection(db, "pharmacies"));
-    //   querySnapshot.forEach((doc) => {
-    //     console.log(`${doc.id} => ${doc.data()}`);
-    //   });
-    // }
-
-    // fetchResults();
-  }, []);
-
-
-  return (
-    <main className={styles.main}>
-
-      {/* header */}
-      <div style={{display: 'flex', minWidth: '100vw', justifyContent: 'space-between', alignItems: 'center', height: 65, paddingLeft: 10, paddingRight: 15, }}>
-        {/* title */}
-        <h1 style={{color: 'black'}}>Rx-Radar</h1>
-
-        {/* search */}
-        <div style={{gap: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingRight: 40, paddingLeft: 40, padding: 10}}>
-
-          {/* medication text input */}
-          <MedicationSearchInput />
-
-          {/* location text input box */}
-          <a data-tooltip-id="my-tooltip" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
-            <div style={{display: 'inline-flex', minWidth: 200, paddingLeft: 15, paddingRight: 15, paddingTop: 10, paddingBottom: 10, borderRadius: 5, backgroundColor: '#F5F5F5', alignItems: 'center', outline: 'none' }}>
-
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              
-              <p style={{fontSize: 16, color: 'black', marginLeft: 5}}>Troy, NY</p>
-              <Tooltip id="my-tooltip" />
+            <div style={{display: 'flex', width: '100%', gap: 8}}>
+              <input className={styles.searchInput} style={{width: '50%'}} placeholder="Dosage"/>
+              <input className={styles.searchInput} style={{width: '50%'}} placeholder="Brand"/>
+              <input className={styles.searchInput} style={{width: '50%'}} placeholder="Quantity"/>
             </div>
-          </a>
 
-          <button className={styles.newButton}>Search</button>
+            <PhoneInput
+            placeholder='+1 (123) 456-7890'
+            style={{color: 'white'}}
+            inputStyle={{width: 300, border: 'none', backgroundColor: '#FFB788', marginTop: 16, borderRadius: 5, height: 50, color: '', paddingLeft: 12}}
+            countrySelectorStyleProps={{buttonStyle: {border: 'none', marginTop: 16, display: 'none'}}}
+            defaultCountry="us"
+            value={phoneNumber}
+            onChange={(phone) => setPhoneNumber(phone)}
+            />
+
+            {/* send button */}
+            <button className={styles.buttonStyle}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.0497 6C15.0264 6.19057 15.924 6.66826 16.6277 7.37194C17.3314 8.07561 17.8091 8.97326 17.9997 9.95M14.0497 2C16.0789 2.22544 17.9713 3.13417 19.4159 4.57701C20.8606 6.01984 21.7717 7.91101 21.9997 9.94M10.2266 13.8631C9.02506 12.6615 8.07627 11.3028 7.38028 9.85323C7.32041 9.72854 7.29048 9.66619 7.26748 9.5873C7.18576 9.30695 7.24446 8.96269 7.41447 8.72526C7.46231 8.65845 7.51947 8.60129 7.63378 8.48698C7.98338 8.13737 8.15819 7.96257 8.27247 7.78679C8.70347 7.1239 8.70347 6.26932 8.27247 5.60643C8.15819 5.43065 7.98338 5.25585 7.63378 4.90624L7.43891 4.71137C6.90747 4.17993 6.64174 3.91421 6.35636 3.76987C5.7888 3.4828 5.11854 3.4828 4.55098 3.76987C4.2656 3.91421 3.99987 4.17993 3.46843 4.71137L3.3108 4.86901C2.78117 5.39863 2.51636 5.66344 2.31411 6.02348C2.08969 6.42298 1.92833 7.04347 1.9297 7.5017C1.93092 7.91464 2.01103 8.19687 2.17124 8.76131C3.03221 11.7947 4.65668 14.6571 7.04466 17.045C9.43264 19.433 12.295 21.0575 15.3284 21.9185C15.8928 22.0787 16.1751 22.1588 16.588 22.16C17.0462 22.1614 17.6667 22 18.0662 21.7756C18.4263 21.5733 18.6911 21.3085 19.2207 20.7789L19.3783 20.6213C19.9098 20.0898 20.1755 19.8241 20.3198 19.5387C20.6069 18.9712 20.6069 18.3009 20.3198 17.7333C20.1755 17.448 19.9098 17.1822 19.3783 16.6508L19.1835 16.4559C18.8339 16.1063 18.6591 15.9315 18.4833 15.8172C17.8204 15.3862 16.9658 15.3862 16.3029 15.8172C16.1271 15.9315 15.9523 16.1063 15.6027 16.4559C15.4884 16.5702 15.4313 16.6274 15.3644 16.6752C15.127 16.8453 14.7828 16.904 14.5024 16.8222C14.4235 16.7992 14.3612 16.7693 14.2365 16.7094C12.7869 16.0134 11.4282 15.0646 10.2266 13.8631Z" stroke="#FBCEB1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
+              <p>Send</p>
+
+            </button>
+          </div>
+
         </div>
       </div>
 
+      {/* search the map */}
+      <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 50}}>
+        <Link href="/map" style={{display: 'flex', alignItems: 'center'}}>
+          <p style={{fontSize: 20}}>or, search the map</p>
+          <svg style={{marginLeft: 4}} width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </Link>
+      </div>
 
-      {/* main body contents */}
-      <div style={{display: 'flex', width: '100vw', overflowY: 'clip', height: '91vh', justifyContent: 'center',}}>
-        <div style={{height: '100vh', width: '32vw', flexDirection: 'column', placeItems: 'center', display: 'flex', padding: 10, paddingTop: 0}}>
+    </div>
 
-          {/* search results title */}
-          <div style={{display: 'flex', width: '100%' }}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <h3 style={{color: 'black', marginLeft: 5}}> results for</h3>  
-              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>300mg</div>
-              <h3 style={{color: 'black', marginLeft: 5}}>of</h3>  
-              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>Adderall</div>
-              <h3 style={{marginLeft: 5, color: 'black',}}>within</h3>
-              <div style={{backgroundColor: '#F5F5F5', padding: 8, marginLeft: 5, color: '#AA98A9', fontWeight: '700', borderRadius: 7}}>5 mi</div>
-            </div>
-          </div>
-
-          {/* search results scroll view*/}
-          { selectedPharmacy ? 
-            <SelectedPharmacyCard pharmacy={selectedPharmacy} onSelectPharmacy={onSelectPharmacy}/> :
-            <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20, overflowY: 'scroll', scrollbarWidth: 'none', height: '82vh', }}>
-              {pharmacies.map((pharmacy) => (
-                <PharmacyResultCard key={pharmacy.id} pharmacy={pharmacy} pharmacyCardSelect={onSelectPharmacy}/>
-              ))}
-            </div>
-          }
-        </div>
-
-        {/* map componenet */}
-        <Map height="89.5vh" width="70vw" pharmacies={pharmacies} selectPharmacy={onSelectPharmacy} error={locationError} map={map} setMap={setMap}/>
-
-      </div>    
-    </main>
-  );
+  </div>
 }
-
