@@ -1,11 +1,16 @@
 
 
+.phoneInput::placeholder {
+    color: #F94D00; /* Replace 'red' with any color you want */
+}
 
+/* normal text input styling */
 .searchInput {
     font-size: 16px; /* Adjust the font size as needed */
     border-radius: 5px; /* Rounded corners */
     height: 50px;
     padding-left: 12px;
+    padding-right: 12px;
     border-width: 0;
     background-color: #FFB788;
     outline: none; /* Removes the default focus outline */
@@ -15,16 +20,17 @@
     color: white; 
 }
 
+/* normal text input styling */
 .searchInput::placeholder {
     color: #F94D00;
     opacity: 1; 
 }
 
-
+/* search button style */
 .buttonStyle {
     font-size: 16px; /* Consistent font size with the input */
     border-radius: 5px; /* Rounded corners for visual consistency */
-    height: 50px; /* Matching height for uniformity */
+    height: 45px; /* Matching height for uniformity */
     border-width: 0; /* No border for a cleaner look */
     background-color: #F94D00; /* Same background color for consistency */
     outline: none; /* Removes the default focus outline */
@@ -39,7 +45,7 @@
     gap: 8px;
 }
 
+/* search button style and focus */
 .buttonStyle:hover, .buttonStyle:focus {
-    background-color: #E0A069; /* Darker shade for interaction feedback */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+    background-color: #f7793f; /* Darker shade for interaction feedback */
 }
