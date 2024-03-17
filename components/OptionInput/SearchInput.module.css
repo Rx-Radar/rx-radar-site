@@ -1,7 +1,8 @@
 
 
 .searchInput {
-    min-width: 400px;
+    min-width: 200px;
+    width: 100%;
     padding: 10px 15px; /* Padding inside the input */
     font-size: 16px; /* Adjust the font size as needed */
     border-radius: 5px; /* Rounded corners */
@@ -14,12 +15,12 @@
 }
 
 .searchInput::placeholder {
-    color: #ccc; /* Placeholder text color */
+    color: #F94D00; /* Placeholder text color */
 }
 
 .searchResultContainer {
     position: absolute;
-    top: 50px; 
+    top: 55px; 
     left: 0;
     width: 100%; 
     /* height: 110px; */

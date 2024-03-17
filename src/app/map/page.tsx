@@ -11,7 +11,7 @@ import { Map, focusMapOnPharmacy } from "../../../components/Map/Map";
 import { Pharmacy } from "../../../components/Pharmacy/Pharmacy";
 import { PharmacyResultCard } from "../../../components/PharmacySearch/PharmacyResultCard/PharmacyResultCard";
 import { SelectedPharmacyCard } from "../../../components/PharmacySearch/SelectedPharmacyCard/SelectedPharmacyCard";
-import { MedicationSearchInput } from "../../../components/PharmacySearch/MedicationSearchInput/MedicationSearchInput";
+import { MedicationSearchInput } from "../../../components/SearchInput/SearchInput";
 
 
 let _pharmacies: Pharmacy[] = [
