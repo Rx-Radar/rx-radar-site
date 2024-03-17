@@ -32,7 +32,6 @@
 
 /* search result item */
 .searchResultItem {
-    /* background-color: #F0F8FF; */
     margin: 4px;
     padding: 10px;
     align-items: center;
@@ -42,5 +41,5 @@
 
 /* search result item on hover */
 .searchResultItem:hover {
-    background-color: #F0F8FF;
+    background-color: #FBCEB1;
 }

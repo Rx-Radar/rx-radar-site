@@ -14,11 +14,11 @@ import { SearchInput } from '../../components/SearchInput/SearchInput';
 
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 
+const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];
+
 
 export default function Index() {
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
-
-  // width="304" height="70"
 
   return <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', alignItems: 'center', padding: 10, backgroundColor: 'white', color: 'black'}}>
     
@@ -40,7 +40,7 @@ export default function Index() {
         {/* right box (input form)*/}
         <div style={{padding: 20, minWidth: 400, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
 
-          <SearchInput placeholder='Medication Name' backgroundColor='#FFB788' inputColor='white'/>
+          <SearchInput placeholder='Medication Name' searchList={medications} backgroundColor='#FFB788' inputColor='white'/>
 
           <div style={{display: 'flex', width: '100%', gap: 8}}>
             <input className={styles.searchInput} style={{width: '50%'}} autoComplete='off' placeholder="Dosage"/>
