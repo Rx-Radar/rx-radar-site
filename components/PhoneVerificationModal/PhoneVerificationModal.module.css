@@ -1,0 +1,18 @@
+/* search button style */
+.buttonStyle {
+    font-size: 16px; /* Consistent font size with the input */
+    border-radius: 5px; /* Rounded corners for visual consistency */
+    height: 45px; /* Matching height for uniformity */
+    border-width: 0; /* No border for a cleaner look */
+    background-color: #F94D00; /* Same background color for consistency */
+    outline: none; /* Removes the default focus outline */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus effects */
+    color: white; /* Text color that contrasts with the background */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    padding: 0 10px; /* Padding to ensure content is not too cramped */
+    margin-top: 16px; /* Space above the button for consistency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
