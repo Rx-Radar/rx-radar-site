@@ -8,9 +8,11 @@
 .searchInput {
     font-size: 16px; /* Adjust the font size as needed */
     border-radius: 5px; /* Rounded corners */
-    height: 50px;
+    /* height: 50px; */
     padding-left: 12px;
     padding-right: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     border-width: 0;
     background-color: #FFB788;
     outline: none; /* Removes the default focus outline */

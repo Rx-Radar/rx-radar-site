@@ -2,18 +2,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from './SearchInput.module.css';
 import Fuse from 'fuse.js';
 
-
+// search input props
 interface SearchInputProps {
     placeholder: string;
     searchList: string[]; // list of search results to display
-    inputColor?: string;
-    placeHolderColor?: string;
-    backgroundColor?: string;
-    caretColor?: string;
     type?: string;
-  }
+}
 
-export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder, inputColor, placeHolderColor, backgroundColor, caretColor, type}) => {
+/**
+ * SearchInput element allows for a filtered list
+ * @param SearchInputProps 
+ * @returns Searchable Input
+ */
+export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder, type}) => {
     const [isFocused, setIsFocused] = useState<boolean>(false); // stores whether the user has focused the text input
     const [currentText, setCurrentText] = useState<string | undefined>(); // stores the current text the user is typing
     const [filteredResults, setFilteredResults] = useState<string[]>(searchList); // filtered list
@@ -77,7 +78,7 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
         <div style={{display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', width: '100%'}}>
             
             {/* search input */}
-            <input type={type} ref={inputRef} onChange={(event) => {fuzzySearchFilter(event.target.value)}} value={currentText} onFocus={() => setIsFocused(true)} placeholder={placeholder} className={styles.searchInput} style={{backgroundColor: backgroundColor, caretColor: caretColor, color: inputColor}} onKeyDown={handleKeyDown}/>
+            <input type={type} ref={inputRef} onChange={(event) => {fuzzySearchFilter(event.target.value)}} value={currentText} onFocus={() => setIsFocused(true)} placeholder={placeholder} className={styles.searchInput} style={{backgroundColor: '#FFB788', caretColor: 'black', color: 'white'}} onKeyDown={handleKeyDown}/>
             
             {/* search results */}
             { isFocused && currentText && currentText.length > 0 && 

@@ -13,6 +13,7 @@ import { Tooltip } from 'react-tooltip'
 import { SearchInput } from '../../components/SearchInput/SearchInput';
 
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
+import { OptionInput } from '../../components/OptionInput/OptionInput';
 
 const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];
 
@@ -40,12 +41,14 @@ export default function Index() {
         {/* right box (input form)*/}
         <div style={{padding: 20, minWidth: 400, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
 
-          <SearchInput placeholder='Medication Name' searchList={medications} backgroundColor='#FFB788' inputColor='white'/>
+          {/* medication search input */}
+          <SearchInput placeholder='Medication Name' searchList={medications}/>
 
-          <div style={{display: 'flex', width: '100%', gap: 8}}>
-            <input className={styles.searchInput} style={{width: '50%'}} autoComplete='off' placeholder="Dosage"/>
-            <input className={styles.searchInput} style={{width: '50%'}} autoComplete='off' placeholder="Brand"/>
-            <input type='number' className={styles.searchInput} style={{width: '50%'}} autoComplete='off' placeholder="Quantity"/>
+          {/* medication parameters */}
+          <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
+            <OptionInput style={{width: '50%'}} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
+            <OptionInput style={{width: '50%'}} name='Brand' options={['Brand Name', 'Generic', 'Either']}/>
+            <OptionInput style={{width: '50%'}} name='Quantity' options={['30', '60', '80', '100']}/>
           </div>
 
           {/* phone input */}
@@ -64,9 +67,13 @@ export default function Index() {
             />
           </div>
 
-            <div style={{width: '100%', marginTop: 16}}>
+            {/* location search (hard coded to Troy, NY) */}
+            <div style={{width: '100%'}}>
               <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
-                <input disabled={true} value={'Troy, NY'} className={styles.searchInput} style={{width: '100%', marginTop: 0}} autoComplete='phone-number' placeholder="Your address"/> 
+                <div className={styles.searchInput}>
+                  <p style={{fontSize: 12, color: '#F94D00'}}>Your location</p>
+                  <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
+                </div>
               </a>
             </div>
             <Tooltip id="my-tooltip" />
