@@ -48,7 +48,7 @@ export default function Index() {
           {/* medication parameters */}
           <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
             <OptionInput style={{width: '50%'}} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
-            <OptionInput style={{width: '50%'}} name='Brand' options={['Brand Name', 'Generic', 'Either']}/>
+            <OptionInput style={{width: '50%'}} name='Type' options={['Brand Name', 'Generic', 'Either']}/>
             <OptionInput style={{width: '50%'}} name='Quantity' options={['30', '60', '80', '100']}/>
           </div>
 
@@ -72,7 +72,7 @@ export default function Index() {
             <div style={{width: '100%'}}>
               <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
                 <div className={styles.searchInput}>
-                  <p style={{fontSize: 12, color: '#F94D00'}}>Your location</p>
+                  <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
                   <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
                 </div>
               </a>
