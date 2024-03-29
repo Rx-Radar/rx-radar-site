@@ -23,7 +23,7 @@ let _pharmacies: Pharmacy[] = [
   {id: 6, name: 'Wallgreens South End', phone: '203-454-4564', location: {lat: 42.8584, lng: -73.683576}, selected: false, address: '10 hillside rd, westport ct, 06880'}
 ];
 
-export default function Home() {
+export default function Map() {
   const [locationError, setLocationError] = useState<string|undefined>(undefined); // stores user location error
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>(_pharmacies); // store list of pharmacies in search
   const [selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy|undefined>();
