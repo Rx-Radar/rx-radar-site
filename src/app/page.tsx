@@ -158,16 +158,6 @@ export default function Index() {
 
           </div>
 
-          {/* search the map */}
-          <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 50}}>
-            {/* <Link href="/map" style={{display: 'flex', alignItems: 'center'}}>
-              <p style={{fontSize: 20}}>or, search the map</p>
-              <svg style={{marginLeft: 4}} width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link> */}
-          </div>
-
         </div>
     </div>
   }
