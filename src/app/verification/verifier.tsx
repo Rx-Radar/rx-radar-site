@@ -1,18 +1,22 @@
 import { ConfirmationResult, RecaptchaVerifier } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { signInWithPhoneNumber } from "firebase/auth";
-import { useRouter } from 'next/navigation';
+
+// // navigationUtils.js
+// import Router from 'next/router';
+
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 
 interface CustomWindow extends Window {
     confirmationResult?: ConfirmationResult | null;
     recaptchaVerifier: RecaptchaVerifier;
-  }
+}
   
-  declare const window: CustomWindow;
+declare const window: CustomWindow;
   
 
-// step 1. setup recaptcha to verify user and prevent abuse (triggered on user submitting medication search form)
+// Step 1. setup recaptcha to verify user and prevent abuse (triggered on user submitting medication search form)
 export const setupRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha', {
         'size': 'invisible',
@@ -26,41 +30,49 @@ export const setupRecaptcha = () => {
     });
 };
 
-// step 2. sends user sms verification
-export const onSearchForMedication = (phoneNumber: string) => {
-    // const navigation = useRouter(); // navigation router
+// Step 2. sends SMS verification
+export const sendSMSVerification = (phoneNumber: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const appVerifier = window.recaptchaVerifier; // Captcha verification
 
-    const appVerifier = window.recaptchaVerifier; // captcha verification
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-            // SMS sent. Prompt user to type the code from the message, then sign the user in with confirmationResult.confirm(code).
-            window.confirmationResult = confirmationResult;
+        toast('Sending Verification Code', { position: "bottom-center", autoClose: 1500, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
 
-            // store the users phone confirmation state sent
-            sessionStorage.setItem('status', 'VERIFICATION_CODE_SENT');
-
-            console.log('in method to send user verification');
-            // navigation.push('/verification');
-        }).catch((error) => {
-            // Error; SMS not sent
-            console.error('Error during signInWithPhoneNumber', error);
-        }
-    );
+        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+                // SMS sent
+                window.confirmationResult = confirmationResult;
+                resolve('SMS verification sent successfully');
+            })
+            .catch((error) => {
+                // Error; SMS not sent
+                toast.error('Could not send SMS', { position: "bottom-center", autoClose: 1500, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
+                reject(error);
+            });
+    });
 };
 
-// step 3. sign user in --> user attempt to verify code
-export const attemptUserSignIn = (code: string) => {
-    if (code && window.confirmationResult) {
-        window.confirmationResult.confirm(code)
-            .then((result) => {
-                // User signed in successfully.
-                console.log('User signed in successfully.');
-            //   setUserSignedIn(true); 
-            }).catch((error) => {
-                // User couldn't sign in (bad verification code?)
-                console.error('Error during confirmationResult.confirm', error);
+// Step 3. sign user in --> user attempt to verify code
+export const signUserIn = (code: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        if (code && window.confirmationResult) {
 
-            }
-        );
-    }
+            // checks if user entered code is correct 
+            console.log(code);
+            window.confirmationResult.confirm(code)
+                .then((result) => {
+                    // Confirmation code correct; get user session id token
+                    auth.currentUser?.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                        resolve(idToken)
+                      }).catch(function(error) {
+                        reject('Error during retrieving user token ' + error)
+                      })
+                }).catch((error) => {
+                    // User couldn't sign in (bad verification code?)
+                    toast.error('Try again', { position: "bottom-center", autoClose: 1500, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
+                    reject('Error during confirmationResult.confirm: ' + error.message);
+                });
+        } else {
+            reject('verification code or confirmation result not provided');
+        }
+    });
 };
