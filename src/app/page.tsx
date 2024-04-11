@@ -6,6 +6,8 @@ import styles from './page.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import axios from 'axios';
+
 // npm inports
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
@@ -58,11 +60,41 @@ export default function Index() {
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
         .then((userSessionToken) => {
-          console.log('WAHOOOO EVERYTHING WORKED');
-          console.log(userSessionToken);
+          makeInitSearchPost(userSessionToken)
           navigation.push('/')
         })
         .catch((error) => console.log(error));
+  }
+
+  async function makeInitSearchPost(userSessionToken: string) {
+    const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search';
+  
+    const body = {
+      // user_session_token: userSessionToken,
+      user_session_token: '123456',
+      phone_number: '12032248444',
+      medication: {
+        name: 'Focalin',
+        dosage: '10',
+        brand_or_generic: 'generic',
+        quantity: '60',
+        // type: 'IR'
+      }
+    };
+  
+    try {
+      const response = await axios.post(url, body, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      console.log('Response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error:', error);
+      // handle errors
+    }
   }
 
   // validate medication search form data
