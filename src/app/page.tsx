@@ -33,8 +33,11 @@ export default function Index() {
   const navigation = useRouter(); // navigation router
 
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
-  const [verificationSent, setVerificationSent] = useState<boolean>(false);
+  // const [verificationSent, setVerificationSent] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  type SearchState = 'START' | 'VERIFICATION_SENT' | 'SEARCH_STARTED';
+  const [searchState, setSearchState] = useState<SearchState>('START');
 
   // on page load setup
   useEffect(() => {
@@ -50,7 +53,8 @@ export default function Index() {
     setLoading(true);
     sendSMSVerification(number)
         .then((successMessage) => {
-          setVerificationSent(true)
+          // setVerificationSent(true)
+          setSearchState('VERIFICATION_SENT');
           setLoading(false);
         })
         .catch((error) => console.error('Error sending SMS verification:', error));
@@ -59,9 +63,9 @@ export default function Index() {
   // verifies user entered code
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
-        .then((userSessionToken) => {
-          makeInitSearchPost(userSessionToken)
-          navigation.push('/')
+        .then(async (userSessionToken) => {
+          //await makeInitSearchPost(userSessionToken)
+          setSearchState('SEARCH_STARTED');
         })
         .catch((error) => console.log(error));
   }
@@ -70,15 +74,15 @@ export default function Index() {
     const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search';
   
     const body = {
-      // user_session_token: userSessionToken,
-      user_session_token: '123456',
+      user_session_token: userSessionToken,
       phone_number: '12032248444',
+      user_location: 'Troy, NY',
       medication: {
         name: 'Focalin',
         dosage: '10',
         brand_or_generic: 'generic',
         quantity: '60',
-        // type: 'IR'
+        type: 'IR'
       }
     };
   
@@ -90,6 +94,7 @@ export default function Index() {
       });
 
       console.log('Response:', response.data);
+      console.log("Status:", response.status)
       return response.data;
     } catch (error) {
       console.error('Error:', error);
@@ -206,6 +211,16 @@ export default function Index() {
     );
   }
 
+  const SearchSentContent = () => {
+    return (
+      <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+        <p style={{fontSize: 40, fontWeight: '700', color: 'black'}}>Congrats, you're one step closer to getting your meds</p>
+        <p style={{fontSize: 40, fontWeight: '700', color: '#F94D00'}}>RxRadar should text you in ~10 min</p>
+      </div>
+    );
+  }
+  
+
   // loading screen
   const Loader = () => {
       return <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -217,7 +232,9 @@ export default function Index() {
   // return main page contents
   return <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', padding: 10, backgroundColor: 'white', color: 'black'}}>    
 
-    { verificationSent ? <VerificationContent/> : <HeroContent/> }
+    { searchState == 'START' && <HeroContent/> }
+    { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }
+    { searchState == 'SEARCH_STARTED' && <SearchSentContent/> }
 
     <div id='recaptcha'></div>
     <ToastContainer />
