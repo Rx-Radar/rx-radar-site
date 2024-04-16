@@ -1,29 +1,23 @@
 import { Tooltip } from "react-tooltip";
-import { Pharmacy } from "../../Pharmacy/Pharmacy";
-
 import styles from "./PharmacyResultCard.module.css"
 
 
-interface PharmacyResultCardProps {
-    pharmacy: Pharmacy;
-    pharmacyCardSelect: (pharmacy: Pharmacy) => void;
-}
 
 /**
  * Pharmacy Result Card 
  * @param PharmacyResultCardProps
  * @returns Pharmacy Result Card 
  */
-export const PharmacyResultCard: React.FC<PharmacyResultCardProps> = ({ pharmacy, pharmacyCardSelect }) => {
+export const PharmacyResultCard = () => {
 
     return (
-        <div key={pharmacy.id} className={styles.pharmacyResultCard} onClick={() => pharmacyCardSelect(pharmacy)}>
+        <div className={styles.pharmacyResultCard}>
               
             {/* pharmacy name and phone number */}
             <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
                 <div style={{flexDirection: 'column', display: 'flex'}}>
-                  <h3 style={{color: 'black'}}>{pharmacy.name}</h3>
-                  <p style={{fontSize: 15, fontWeight: '500', color: 'grey', marginTop: 2}}>{pharmacy.phone}</p>
+                  <h3 style={{color: 'black'}}>{'pharmacy.name'}</h3>
+                  <p style={{fontSize: 15, fontWeight: '500', color: 'grey', marginTop: 2}}>{'pharmacy.phone'}</p>
                 </div>
 
                 {/* distance in miles */}
