@@ -1,2 +1,2 @@
 # rx-radar-site
-RxRadar site!
+RxRadar site
