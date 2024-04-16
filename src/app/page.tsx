@@ -23,7 +23,7 @@ import { SearchInput } from '../../components/SearchInput/SearchInput';
 import QuantumLoader from '../../components/LoaderAnimations/QuantumLoader/QuantumLoader';
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 import { OptionInput } from '../../components/OptionInput/OptionInput';
-import { setupRecaptcha, sendSMSVerification, signUserIn} from './verification/verifier';
+import { setupRecaptcha, sendSMSVerification, signUserIn} from './verifier';
 
 
 const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];

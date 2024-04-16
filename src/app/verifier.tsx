@@ -1,5 +1,5 @@
 import { ConfirmationResult, RecaptchaVerifier } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth } from "./firebase-config";
 import { signInWithPhoneNumber } from "firebase/auth";
 
 // // navigationUtils.js
