@@ -198,7 +198,7 @@ export default function Index() {
               </div>
 
               <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, flexDirection: 'column'}}>
-                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you agree to recieve an sms notification when your medication is located</p>
+                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications by RxRadar</p>
               </div>
               
             </div>
