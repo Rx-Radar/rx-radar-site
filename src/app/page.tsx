@@ -16,14 +16,12 @@ import ReactInputVerificationCode from 'react-input-verification-code';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { SearchInput } from '../../components/SearchInput/SearchInput';
-// import PhoneVerifificationModal from './verification/page';
-
 // local inports
 import QuantumLoader from '../../components/LoaderAnimations/QuantumLoader/QuantumLoader';
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 import { OptionInput } from '../../components/OptionInput/OptionInput';
 import { setupRecaptcha, sendSMSVerification, signUserIn} from './verifier';
+import { SearchInput } from '../../components/SearchInput/SearchInput';
 
 
 const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];
@@ -32,17 +30,16 @@ const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];
 export default function Index() {
   const navigation = useRouter(); // navigation router
 
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
-  // const [verificationSent, setVerificationSent] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  // true when the application is loading
+  const [loading, setLoading] = useState<boolean>(false); 
 
+  // user search process state
   type SearchState = 'START' | 'VERIFICATION_SENT' | 'SEARCH_STARTED';
   const [searchState, setSearchState] = useState<SearchState>('START');
 
   // on page load setup
   useEffect(() => {
     setupRecaptcha();
-
   }, []);
 
 
@@ -53,7 +50,6 @@ export default function Index() {
     setLoading(true);
     sendSMSVerification(number)
         .then((successMessage) => {
-          // setVerificationSent(true)
           setSearchState('VERIFICATION_SENT');
           setLoading(false);
         })
@@ -64,7 +60,7 @@ export default function Index() {
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
         .then(async (userSessionToken) => {
-          //await makeInitSearchPost(userSessionToken)
+          //await makeInitSearchPost(userSessionToken) ######## uncomment this to call api ########
           setSearchState('SEARCH_STARTED');
         })
         .catch((error) => console.log(error));
@@ -128,6 +124,15 @@ export default function Index() {
 
   // main hero content with medication search form
   const HeroContent = () => {
+
+    // user form fields
+    const [medication, setMedication] = useState<string>('');
+    const [dosage, setDosage] = useState<string>('');
+    const [type, setType] = useState<string>('');
+    const [quantity, setQuantity] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [location, setLocation] = useState<string>('')
+
     return <div>
       <div style={{width: '100%', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <RxRadarLogoBeacon />
@@ -149,7 +154,7 @@ export default function Index() {
             <div style={{padding: 20, minWidth: 400, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
 
               {/* medication search input */}
-              <SearchInput placeholder='Medication Name' searchList={medications}/>
+              <SearchInput placeholder='Medication Name' searchList={medications} onChange={(val) => console.log(val)}/>
 
               {/* medication parameters */}
               <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
@@ -157,6 +162,8 @@ export default function Index() {
                 <OptionInput style={{width: '50%'}} name='Type' options={['Brand Name', 'Generic', 'Either']}/>
                 <OptionInput style={{width: '50%'}} name='Quantity' options={['30', '60', '80', '100']}/>
               </div>
+
+
 
               {/* phone input */}
               <div style={{width: '100%'}}>
@@ -190,7 +197,10 @@ export default function Index() {
                 <SearchForMedicationButton/>  
               </div>
 
-              <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>*RxRadar varies in accuracy, and may not always return updated information</p>
+              <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, flexDirection: 'column'}}>
+                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you agree to recieve an sms notification when your medication is located</p>
+              </div>
+              
             </div>
 
           </div>

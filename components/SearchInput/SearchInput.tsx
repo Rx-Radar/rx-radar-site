@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import styles from './SearchInput.module.css';
 import Fuse from 'fuse.js';
 
@@ -6,6 +6,7 @@ import Fuse from 'fuse.js';
 interface SearchInputProps {
     placeholder: string; 
     searchList: string[]; // list of search results to display
+    onChange: (value: string) => void; // function called on input option changed
 }
 
 /**
@@ -13,9 +14,9 @@ interface SearchInputProps {
  * @param SearchInputProps 
  * @returns Searchable Input
  */
-export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder }) => {
+export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder, onChange }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false); // stores whether the user has focused the text input
-    const [currentText, setCurrentText] = useState<string | undefined>(); // stores the current text the user is typing
+    const [currentText, setCurrentText] = useState<string>(''); // stores the current text the user is typing
     const [filteredResults, setFilteredResults] = useState<string[]>(searchList); // filtered list
     
     const inputRef = useRef<HTMLInputElement>(null); // input reference
@@ -24,6 +25,12 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
     // fuzzy search parameters
     const options = { includeScore: true }
     const fuse = new Fuse(searchList, options)
+
+    // updates onChange when current text changed
+    useEffect(() => {
+        onChange(currentText);
+    }, [currentText]);
+
 
     // update input text and filter fuzzy search result
     const fuzzySearchFilter = (input: string) => {
@@ -35,7 +42,7 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
         }
     }
 
-    // on user select enter key
+    // on user select enter key select top item
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
             setCurrentText(filteredResults[0]);
@@ -51,7 +58,6 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
         setCurrentText(item);
         setIsFocused(false);
     }
-
 
     useEffect(() => {
         const handleClickOutsideInput = (event: any) => {
@@ -72,12 +78,11 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
 
     });
 
-
     return (
         <div style={{display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', width: '100%'}}>
             
             {/* search input */}
-            <input type="search" ref={inputRef} onChange={(event) => {fuzzySearchFilter(event.target.value)}} value={currentText} onFocus={() => setIsFocused(true)} placeholder={placeholder} className={styles.searchInput} style={{backgroundColor: '#FFB788', caretColor: 'black', color: 'white'}} onKeyDown={handleKeyDown}/>
+            <input type="search" ref={inputRef} onChange={(event) => fuzzySearchFilter(event.target.value)} value={currentText} onFocus={() => setIsFocused(true)} placeholder={placeholder} className={styles.searchInput} style={{backgroundColor: '#FFB788', caretColor: 'black', color: 'white'}} onKeyDown={handleKeyDown}/>
             
             {/* search results */}
             { isFocused && currentText && currentText.length > 0 && 
