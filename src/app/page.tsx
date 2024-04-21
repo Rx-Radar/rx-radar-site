@@ -24,7 +24,7 @@ import { setupRecaptcha, sendSMSVerification, signUserIn} from './verifier';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
 
 
-const medications = ['Ritalin', 'Adderall', 'Dexedrine', 'Daytrana', 'Vyvanse'];
+const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
 
 
 export default function Index() {
