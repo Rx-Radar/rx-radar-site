@@ -114,10 +114,11 @@ export default function Index() {
         onClick={initializeMedicationSearch}
         disabled={loading}
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.0497 6C15.0264 6.19057 15.924 6.66826 16.6277 7.37194C17.3314 8.07561 17.8091 8.97326 17.9997 9.95M14.0497 2C16.0789 2.22544 17.9713 3.13417 19.4159 4.57701C20.8606 6.01984 21.7717 7.91101 21.9997 9.94M10.2266 13.8631C9.02506 12.6615 8.07627 11.3028 7.38028 9.85323C7.32041 9.72854 7.29048 9.66619 7.26748 9.5873C7.18576 9.30695 7.24446 8.96269 7.41447 8.72526C7.46231 8.65845 7.51947 8.60129 7.63378 8.48698C7.98338 8.13737 8.15819 7.96257 8.27247 7.78679C8.70347 7.1239 8.70347 6.26932 8.27247 5.60643C8.15819 5.43065 7.98338 5.25585 7.63378 4.90624L7.43891 4.71137C6.90747 4.17993 6.64174 3.91421 6.35636 3.76987C5.7888 3.4828 5.11854 3.4828 4.55098 3.76987C4.2656 3.91421 3.99987 4.17993 3.46843 4.71137L3.3108 4.86901C2.78117 5.39863 2.51636 5.66344 2.31411 6.02348C2.08969 6.42298 1.92833 7.04347 1.9297 7.5017C1.93092 7.91464 2.01103 8.19687 2.17124 8.76131C3.03221 11.7947 4.65668 14.6571 7.04466 17.045C9.43264 19.433 12.295 21.0575 15.3284 21.9185C15.8928 22.0787 16.1751 22.1588 16.588 22.16C17.0462 22.1614 17.6667 22 18.0662 21.7756C18.4263 21.5733 18.6911 21.3085 19.2207 20.7789L19.3783 20.6213C19.9098 20.0898 20.1755 19.8241 20.3198 19.5387C20.6069 18.9712 20.6069 18.3009 20.3198 17.7333C20.1755 17.448 19.9098 17.1822 19.3783 16.6508L19.1835 16.4559C18.8339 16.1063 18.6591 15.9315 18.4833 15.8172C17.8204 15.3862 16.9658 15.3862 16.3029 15.8172C16.1271 15.9315 15.9523 16.1063 15.6027 16.4559C15.4884 16.5702 15.4313 16.6274 15.3644 16.6752C15.127 16.8453 14.7828 16.904 14.5024 16.8222C14.4235 16.7992 14.3612 16.7693 14.2365 16.7094C12.7869 16.0134 11.4282 15.0646 10.2266 13.8631Z" stroke="#FBCEB1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5295 8.35186C12.9571 8.75995 12.2566 9 11.5 9C9.567 9 8 7.433 8 5.5C8 3.567 9.567 2 11.5 2C12.753 2 13.8522 2.65842 14.4705 3.64814M6 20.0872H8.61029C8.95063 20.0872 9.28888 20.1277 9.61881 20.2086L12.3769 20.8789C12.9753 21.0247 13.5988 21.0388 14.2035 20.9214L17.253 20.3281C18.0585 20.1712 18.7996 19.7854 19.3803 19.2205L21.5379 17.1217C22.154 16.5234 22.154 15.5524 21.5379 14.9531C20.9832 14.4134 20.1047 14.3527 19.4771 14.8103L16.9626 16.6449C16.6025 16.9081 16.1643 17.0498 15.7137 17.0498H13.2855L14.8311 17.0498C15.7022 17.0498 16.4079 16.3633 16.4079 15.5159V15.2091C16.4079 14.5055 15.9156 13.892 15.2141 13.7219L12.8286 13.1417C12.4404 13.0476 12.0428 13 11.6431 13C10.6783 13 8.93189 13.7988 8.93189 13.7988L6 15.0249M20 6.5C20 8.433 18.433 10 16.5 10C14.567 10 13 8.433 13 6.5C13 4.567 14.567 3 16.5 3C18.433 3 20 4.567 20 6.5ZM2 14.6L2 20.4C2 20.9601 2 21.2401 2.10899 21.454C2.20487 21.6422 2.35785 21.7951 2.54601 21.891C2.75992 22 3.03995 22 3.6 22H4.4C4.96005 22 5.24008 22 5.45399 21.891C5.64215 21.7951 5.79513 21.6422 5.89101 21.454C6 21.2401 6 20.9601 6 20.4V14.6C6 14.0399 6 13.7599 5.89101 13.546C5.79513 13.3578 5.64215 13.2049 5.45399 13.109C5.24008 13 4.96005 13 4.4 13L3.6 13C3.03995 13 2.75992 13 2.54601 13.109C2.35785 13.2049 2.20487 13.3578 2.10899 13.546C2 13.7599 2 14.0399 2 14.6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <p style={{color: '#FBCEB1'}}>Get results now</p>
+
+          <p style={{color: 'white', fontWeight: '600'}}>Find medication</p>
         </button>
     );
   }
@@ -129,6 +130,7 @@ export default function Index() {
     const [medication, setMedication] = useState<string>('');
     const [dosage, setDosage] = useState<string>('');
     const [type, setType] = useState<string>('');
+    const [brand, setBrand] = useState<string>('');
     const [quantity, setQuantity] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [location, setLocation] = useState<string>('')
@@ -144,26 +146,27 @@ export default function Index() {
           <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 200}}>
 
             {/* left box (content) */}
-            <div style={{padding: 10, height: 'fit-content', width: '40vw', minWidth: 400,}}>
-              <p style={{fontSize: 42, fontWeight: '600', color: '#FFB788',}}>Your 💊 out of stock?</p>
+            <div style={{padding: 10, height: 'fit-content', width: '43vw', minWidth: 400,}}>
+              <p style={{fontSize: 42, fontWeight: '600', color: '#FFB788',}}>💊 out of stock/in shortage?</p>
               <p style={{fontSize: 42, fontWeight: '700'}}>In 10 min we'll find and text you where it's available.</p>
               <p style={{fontSize: 42, fontWeight: '600', color: '#FFB788',}}> You're welcome.</p>
             </div>
 
             {/* right box (input form)*/}
-            <div style={{padding: 20, minWidth: 400, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
+            <div style={{padding: 20, minWidth: 500, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
+
+              <p style={{fontSize: 20, marginBottom: 15, color: '#F94D00', fontWeight: '600'}}>Begin a new search</p>
 
               {/* medication search input */}
-              <SearchInput placeholder='Medication Name' searchList={medications} onChange={(val) => console.log(val)}/>
+              <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)}/>
 
               {/* medication parameters */}
               <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
-                <OptionInput style={{width: '50%'}} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
-                <OptionInput style={{width: '50%'}} name='Type' options={['Brand Name', 'Generic', 'Either']}/>
-                <OptionInput style={{width: '50%'}} name='Quantity' options={['30', '60', '80', '100']}/>
+                <OptionInput style={{width: '50%'}} onChange={(option) => setDosage(option)} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
+                <OptionInput style={{width: '50%'}} onChange={(option) => setBrand(option)} name='Brand/Generic' options={['Brand', 'Generic', 'Either']}/>
+                <OptionInput style={{width: '50%'}} onChange={(option) => setQuantity(option)} name='Quantity' options={['30', '60', '80', '100']}/>
+                <OptionInput style={{width: '50%'}} onChange={(option) => setType(option)} name='Type' options={['IR', 'XR', 'none']}/>
               </div>
-
-
 
               {/* phone input */}
               <div style={{width: '100%'}}>
@@ -197,8 +200,8 @@ export default function Index() {
                 <SearchForMedicationButton/>  
               </div>
 
-              <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, flexDirection: 'column'}}>
-                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications by RxRadar</p>
+              <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center', flexDirection: 'column'}}>
+                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications from RxRadar</p>
               </div>
               
             </div>
@@ -223,9 +226,11 @@ export default function Index() {
 
   const SearchSentContent = () => {
     return (
-      <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-        <p style={{fontSize: 40, fontWeight: '700', color: 'black'}}>Congrats, you're one step closer to getting your meds</p>
-        <p style={{fontSize: 40, fontWeight: '700', color: '#F94D00'}}>RxRadar should text you in ~10 min</p>
+      <div style={{ width: '100vw', height: '100vh', backgroundColor: '#FBCEB1', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+        <div>
+          <p style={{fontSize: 60, fontWeight: '700', color: 'black'}}>Searching for meds!</p>
+          <p style={{fontSize: 40, fontWeight: '700', color: '#F94D00'}}>We'll text you soon</p>
+        </div>
       </div>
     );
   }
@@ -240,7 +245,7 @@ export default function Index() {
   }
 
   // return main page contents
-  return <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', padding: 10, backgroundColor: 'white', color: 'black'}}>    
+  return <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', color: 'black'}}>    
 
     { searchState == 'START' && <HeroContent/> }
     { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }

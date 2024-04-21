@@ -6,6 +6,7 @@ interface SearchInputProps {
     name?: string; // optional title for the input
     options: string[]; // list of search results to display
     style?: React.CSSProperties;
+    onChange: (value: string) => void; // function called on option input changed
 }
 
 /**
@@ -13,13 +14,18 @@ interface SearchInputProps {
  * @param SearchInputProps 
  * @returns Searchable Input
  */
-export const OptionInput:React.FC<SearchInputProps> = ({ options, style, name }) => {
+export const OptionInput:React.FC<SearchInputProps> = ({ options, style, name, onChange }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false); // stores whether the user has focused the text input
     const [currentOption, setCurrentOption] = useState<string>(options[0]); // stores the current text the user is typing
     const [filteredResults, setFilteredResults] = useState<string[]>(options); // filtered list
     
     const inputRef = useRef<HTMLInputElement>(null); // input reference
     const resultsRef = useRef<HTMLDivElement>(null); // search results reference
+
+    // updates onChange when current option changed
+    useEffect(() => {
+        onChange(currentOption);
+    }, [currentOption]);
 
     // on list item select
     const listItemSelect = (item: string) => {
