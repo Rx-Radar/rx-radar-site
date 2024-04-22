@@ -17,11 +17,14 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // local inports
+import { NavigationBar } from '../../components/NavigationBar/NavigationBar';
 import QuantumLoader from '../../components/LoaderAnimations/QuantumLoader/QuantumLoader';
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 import { OptionInput } from '../../components/OptionInput/OptionInput';
 import { setupRecaptcha, sendSMSVerification, signUserIn} from './verifier';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
+
+import { ReactSVG } from 'react-svg'
 
 
 const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
@@ -136,79 +139,75 @@ export default function Index() {
     const [location, setLocation] = useState<string>('')
 
     return <div>
-      <div style={{width: '100%', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <RxRadarLogoBeacon />
-        </div>
+      <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+        
+        {/* main row contents */}
+        <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 200}}>
 
-        <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          
-          {/* main row contents */}
-          <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 200}}>
+          {/* left box (content) */}
+          <div style={{padding: 10, height: 'fit-content', width: '43vw', minWidth: 400,}}>
+            <p style={{fontSize: 42, fontWeight: '700', color: '#FB4E00',}}>💊 out of stock/in shortage?</p>
+            <p style={{fontSize: 42, fontWeight: '700'}}>In 10 min we'll find and text you where it's available.</p>
+            <p style={{fontSize: 42, fontWeight: '700', color: '#FB4E00',}}> You're welcome.</p>
+          </div>
 
-            {/* left box (content) */}
-            <div style={{padding: 10, height: 'fit-content', width: '43vw', minWidth: 400,}}>
-              <p style={{fontSize: 42, fontWeight: '600', color: '#FFB788',}}>💊 out of stock/in shortage?</p>
-              <p style={{fontSize: 42, fontWeight: '700'}}>In 10 min we'll find and text you where it's available.</p>
-              <p style={{fontSize: 42, fontWeight: '600', color: '#FFB788',}}> You're welcome.</p>
+          {/* right box (input form)*/}
+          <div style={{padding: 20, minWidth: 500, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
+
+            <p style={{fontSize: 20, marginBottom: 15, color: '#F94D00', fontWeight: '600'}}>Begin a new search</p>
+
+            {/* medication search input */}
+            <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)}/>
+
+            {/* medication parameters */}
+            <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
+              <OptionInput style={{width: '50%'}} onChange={(option) => setDosage(option)} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
+              <OptionInput style={{width: '50%'}} onChange={(option) => setBrand(option)} name='Brand/Generic' options={['Brand', 'Generic', 'Either']}/>
+              <OptionInput style={{width: '50%'}} onChange={(option) => setQuantity(option)} name='Quantity' options={['30', '60', '80', '100']}/>
+              <OptionInput style={{width: '50%'}} onChange={(option) => setType(option)} name='Type' options={['IR', 'XR', 'none']}/>
             </div>
 
-            {/* right box (input form)*/}
-            <div style={{padding: 20, minWidth: 500, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', backgroundColor: '#FBCEB1', height: 'fit-content', width: '30vw', borderRadius: 12, border: '2px solid #F94D00'}}>
+            {/* phone input */}
+            <div style={{width: '100%'}}>
+              <PhoneInput
+              placeholder='Phone Number'
+              disableDialCodePrefill={true}            
+              hideDropdown={true}
+              inputClassName={styles.phoneInput}
+              inputStyle={{width: '100%', border: 'none', backgroundColor: '#FFB788', marginTop: 16, borderRadius: 5, height: 50, paddingLeft: 12, color: 'white', fontSize: 16, caretColor: 'black'}}
+              countrySelectorStyleProps={{buttonStyle: {border: 'none', marginTop: 16, display: 'none'}}}
+              defaultCountry="us"
+              disableDialCodeAndPrefix={true}
+              value={phoneNumber}
+              onChange={(phone) => setPhoneNumber(phone)}
+              />
+            </div>
 
-              <p style={{fontSize: 20, marginBottom: 15, color: '#F94D00', fontWeight: '600'}}>Begin a new search</p>
-
-              {/* medication search input */}
-              <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)}/>
-
-              {/* medication parameters */}
-              <div style={{display: 'flex', width: '100%', gap: 8, marginTop: 16}}>
-                <OptionInput style={{width: '50%'}} onChange={(option) => setDosage(option)} name='Dosage' options={['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg']}/>
-                <OptionInput style={{width: '50%'}} onChange={(option) => setBrand(option)} name='Brand/Generic' options={['Brand', 'Generic', 'Either']}/>
-                <OptionInput style={{width: '50%'}} onChange={(option) => setQuantity(option)} name='Quantity' options={['30', '60', '80', '100']}/>
-                <OptionInput style={{width: '50%'}} onChange={(option) => setType(option)} name='Type' options={['IR', 'XR', 'none']}/>
-              </div>
-
-              {/* phone input */}
+              {/* location search (hard coded to Troy, NY) */}
               <div style={{width: '100%'}}>
-                <PhoneInput
-                placeholder='Phone Number'
-                disableDialCodePrefill={true}            
-                hideDropdown={true}
-                inputClassName={styles.phoneInput}
-                inputStyle={{width: '100%', border: 'none', backgroundColor: '#FFB788', marginTop: 16, borderRadius: 5, height: 50, paddingLeft: 12, color: 'white', fontSize: 16, caretColor: 'black'}}
-                countrySelectorStyleProps={{buttonStyle: {border: 'none', marginTop: 16, display: 'none'}}}
-                defaultCountry="us"
-                disableDialCodeAndPrefix={true}
-                value={phoneNumber}
-                onChange={(phone) => setPhoneNumber(phone)}
-                />
+                <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
+                  <div className={styles.searchInput}>
+                    <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
+                    <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
+                  </div>
+                </a>
               </div>
+              <Tooltip id="my-tooltip" />
 
-                {/* location search (hard coded to Troy, NY) */}
-                <div style={{width: '100%'}}>
-                  <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
-                    <div className={styles.searchInput}>
-                      <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
-                      <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
-                    </div>
-                  </a>
-                </div>
-                <Tooltip id="my-tooltip" />
-
-              {/* search send button */}
-              <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <SearchForMedicationButton/>  
-              </div>
-
-              <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center', flexDirection: 'column'}}>
-                <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications from RxRadar</p>
-              </div>
-              
+            {/* search send button */}
+            <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <SearchForMedicationButton/>  
             </div>
 
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center', flexDirection: 'column'}}>
+              <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications from RxRadar</p>
+            </div>
+              
           </div>
 
         </div>
+
+      </div>
     </div>
   }
 
@@ -245,14 +244,24 @@ export default function Index() {
   }
 
   // return main page contents
-  return <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', color: 'black'}}>    
+  return (
+    <>
+      {/* <img src='https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630' alt="Description" style={{position: 'absolute', width: '100%', height: '100%'}} /> */}
+      <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', maxHeight: '100%', backgroundColor: 'green', overflow: 'hidden'}} />
 
-    { searchState == 'START' && <HeroContent/> }
-    { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }
-    { searchState == 'SEARCH_STARTED' && <SearchSentContent/> }
+      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
+        <NavigationBar/>
 
-    <div id='recaptcha'></div>
-    <ToastContainer />
-  </div>
+        { searchState == 'START' && <HeroContent/> }
+        { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }
+        { searchState == 'SEARCH_STARTED' && <SearchSentContent/> }
 
+        <div id='recaptcha'></div>
+        <ToastContainer />
+      </div>
+
+    </>
+  );
 }
+
+
