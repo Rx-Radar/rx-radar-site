@@ -63,24 +63,24 @@ export default function Index() {
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
         .then(async (userSessionToken) => {
-          //await makeInitSearchPost(userSessionToken) ######## uncomment this to call api ########
+          await makeInitSearchPost(userSessionToken) //######## uncomment this to call api ########
           setSearchState('SEARCH_STARTED');
         })
         .catch((error) => console.log(error));
   }
 
   async function makeInitSearchPost(userSessionToken: string) {
-    const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search';
+    const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search-bland'; // calls init-search-bland MVP
   
     const body = {
       user_session_token: userSessionToken,
-      phone_number: '12032248444',
+      phone_number: '+12037674296',
       user_location: 'Troy, NY',
       medication: {
         name: 'Focalin',
         dosage: '10',
         brand_or_generic: 'generic',
-        quantity: '60',
+        quantity: '90',
         type: 'IR'
       }
     };
@@ -200,7 +200,7 @@ export default function Index() {
             </div>
 
             <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center', flexDirection: 'column'}}>
-              <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "get results now" you consent to receiving SMS notifications from RxRadar</p>
+              <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "Find medication" you consent to receiving SMS notifications from RxRadar</p>
             </div>
               
           </div>
@@ -247,7 +247,7 @@ export default function Index() {
   return (
     <>
       {/* <img src='https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630' alt="Description" style={{position: 'absolute', width: '100%', height: '100%'}} /> */}
-      <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', maxHeight: '100%', backgroundColor: 'green', overflow: 'hidden'}} />
+      <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', maxHeight: '100%', overflow: 'hidden'}} />
 
       <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
         <NavigationBar/>
