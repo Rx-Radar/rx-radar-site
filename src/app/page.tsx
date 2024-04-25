@@ -183,24 +183,24 @@ export default function Index() {
               />
             </div>
 
-              {/* location search (hard coded to Troy, NY) */}
-              <div style={{width: '100%'}}>
-                <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
-                  <div className={styles.searchInput}>
-                    <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
-                    <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
-                  </div>
-                </a>
-              </div>
-              <Tooltip id="my-tooltip" />
+            {/* location search (hard coded to Troy, NY) */}
+            <div style={{width: '100%'}}>
+              <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 100000}} data-tooltip-content="Check back soon, we're adding new locations.">
+                <div className={styles.searchInput}>
+                  <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
+                  <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
+                </div>
+              </a>
+            </div>
+            <Tooltip id="my-tooltip" />
 
             {/* search send button */}
             <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
               <SearchForMedicationButton/>  
             </div>
 
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center', flexDirection: 'column'}}>
-              <p style={{color: '#F94D00', fontSize: 10, paddingTop: 4}}>By pressing "Find medication" you consent to receiving SMS notifications from RxRadar</p>
+            <div style={{width: '100%', marginTop: 10, textAlign: 'center'}}>
+              <p style={{color: '#F94D00', fontSize: 13, paddingTop: 4}}>By pressing "Find medication" you agree to our <Link style={{fontWeight: '700'}} href="/privacy-policy">Privacy Policy</Link> and concent to receiving SMS notifications from RxRadar</p>
             </div>
               
           </div>
