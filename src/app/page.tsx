@@ -2,9 +2,9 @@
 'use client';
 
 import Link from 'next/link';
-import styles from './page.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
 
 import axios from 'axios';
 
@@ -138,17 +138,17 @@ export default function Index() {
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [location, setLocation] = useState<string>('')
 
-    return <div>
+    return (
       <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         
         {/* main row contents */}
-        <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 200}}>
+        <div className={styles.hero_content}>
 
           {/* left box (content) */}
-          <div style={{padding: 10, height: 'fit-content', width: '43vw', minWidth: 400,}}>
-            <p style={{fontSize: 42, fontWeight: '700', color: '#FB4E00',}}>💊 out of stock/in shortage?</p>
-            <p style={{fontSize: 42, fontWeight: '700'}}>In 10 min we'll find and text you where it's available.</p>
-            <p style={{fontSize: 42, fontWeight: '700', color: '#FB4E00',}}> You're welcome.</p>
+          <div className={styles.hero_text_container}>
+            <p style={{fontWeight: '700', color: '#FB4E00',}}>Trouble finding your meds?</p>
+            <p style={{fontWeight: '700'}}>RxRadar finds what pharmacies have it in stock.</p>
+            <p style={{fontWeight: '700', color: '#FB4E00',}}>We'll text you in ~10</p>
           </div>
 
           {/* right box (input form)*/}
@@ -200,7 +200,7 @@ export default function Index() {
             </div>
 
             <div style={{width: '100%', marginTop: 10, textAlign: 'center'}}>
-              <p style={{color: '#F94D00', fontSize: 13, paddingTop: 4}}>By pressing "Find medication" you agree to our <Link style={{fontWeight: '700'}} href="/privacy-policy">Privacy Policy</Link> and concent to receiving SMS notifications from RxRadar</p>
+              <p style={{color: '#F94D00', fontSize: 13, paddingTop: 4}}>By pressing "Find medication" you agree to our <Link style={{fontWeight: '700'}} href="/privacy-policy">Privacy Policy</Link> and consent to receiving SMS notifications from RxRadar</p>
             </div>
               
           </div>
@@ -208,7 +208,7 @@ export default function Index() {
         </div>
 
       </div>
-    </div>
+    );
   }
 
   // verification code entry page
@@ -246,10 +246,9 @@ export default function Index() {
   // return main page contents
   return (
     <>
-      {/* <img src='https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630' alt="Description" style={{position: 'absolute', width: '100%', height: '100%'}} /> */}
-      <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', maxHeight: '100%', overflow: 'hidden'}} />
+      {/* <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', height: '100%', objectFit: 'none'}} /> */}
 
-      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
+      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black', backgroundColor: 'white'}}>    
         <NavigationBar/>
 
         { searchState == 'START' && <HeroContent/> }

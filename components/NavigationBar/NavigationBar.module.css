@@ -1,0 +1,48 @@
+
+.navigation_bar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    padding: 10px 20px;
+    z-index: 1000;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu_button {
+    display: none;
+}
+
+/* menu options row */
+.menu_options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    color: #f94d00;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* Define a media query for screen widths below 768px */
+@media (max-width: 768px) {
+    /* Select the div you want to hide */
+    .menu_options {
+      /* Hide the div content by setting display to none */
+      display: none;
+    }
+
+    .menu_button {
+        display: inline;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        stroke: #f94d00;
+        border: none;
+    }
+}
+
