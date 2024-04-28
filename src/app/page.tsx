@@ -117,7 +117,7 @@ export default function Index() {
     const [location, setLocation] = useState<string>('')
 
     return (
-      <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', height: '100%', display: 'flex', overflowY: 'auto', flexDirection: 'column', padding: 20}}>
         
         {/* main row contents */}
         <div className={styles.hero_content}>
@@ -133,6 +133,31 @@ export default function Index() {
           <PrescriptionSearchForm loading={false} initializeMedicationSearch={initializeMedicationSearch}/>
 
         </div>
+
+
+        {/* <p style={{width: 200}}>
+          MORE CONTENT HERE
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+        asdfgsdfgsdfgsdfgsdfg
+
+        </p> */}
 
       </div>
     );
@@ -175,7 +200,7 @@ export default function Index() {
     <>
       {/* <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', height: '100%', objectFit: 'none'}} /> */}
 
-      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black', backgroundColor: 'white'}}>    
+      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
         <NavigationBar/>
 
         { searchState == 'START' && <HeroContent/> }

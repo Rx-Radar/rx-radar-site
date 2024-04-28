@@ -6,12 +6,13 @@
     align-items: start;
     background-color: #FBCEB1;
     height: fit-content;
-    width: 40vw;
     border-radius: 12px;
     border: 2px solid #F94D00;
     padding: 12px;
     gap: 12px;
-    min-width: 350px;
+    min-width: 400px;
+    width: 600px;
+    /* width: 30vw; */
 }
 
 .medication_options {
@@ -42,6 +43,7 @@
 
     .prescription_search_form {
         align-items: center;
+        width: 350px;
     }
 
     .disclaimer {

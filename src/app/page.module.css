@@ -1,10 +1,12 @@
 .hero_content {
     width: 100%;
+    min-height: 100vh;
     display: flex; 
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10vw;
+    gap: 50px;
+    padding: 20px;
 }
 
 .hero_text_container {
@@ -21,8 +23,7 @@
     
     .hero_content {
         flex-direction: column;
-        padding-top: 30vh;
-        padding-bottom: 2vh;
+        margin-top: none;
     }
 
     .hero_text_container {
