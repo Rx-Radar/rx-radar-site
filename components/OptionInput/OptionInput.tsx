@@ -53,7 +53,7 @@ export const OptionInput:React.FC<SearchInputProps> = ({ options, style, name, o
 
 
     return (
-        <div style={{...style, display: 'flex', flexDirection: 'column', height: '100%', position: 'relative',}}>
+        <div style={{...style, display: 'flex', flexDirection: 'column', height: '100%', position: 'relative'}}>
             
             {/* option selector */}
             <div onClick={() => setIsFocused(true)} className={styles.searchInput} style={{backgroundColor: '#FFB788', caretColor: 'black', color: 'white'}}>

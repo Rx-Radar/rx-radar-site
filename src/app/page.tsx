@@ -124,9 +124,9 @@ export default function Index() {
 
           {/* left box (content) */}
           <div className={styles.hero_text_container}>
-            <p style={{color: '#FB4E00'}}>Trouble finding your meds?</p>
-            <p>RxRadar finds what pharmacies have it in stock.</p>
-            <p style={{color: '#FB4E00'}}>We'll text you in ~10</p>
+            <p style={{color: '#FB4E00'}}>Meds in shortage?</p>
+            <p>We find a nearby pharmacy that has them</p>
+            <p style={{color: '#FB4E00'}}>Then we'll text you in ~10</p>
           </div>
 
           {/* right box (input form)*/}

@@ -21,12 +21,12 @@
     
     .hero_content {
         flex-direction: column;
-        padding-top: 20rem;
-        padding-bottom: 5rem;
+        padding-top: 30vh;
+        padding-bottom: 2vh;
     }
 
     .hero_text_container {
-        font-size: 30px;
+        font-size: 20px;
         max-width: 80vw;
         text-align: center;
     }
