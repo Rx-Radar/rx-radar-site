@@ -1,5 +1,3 @@
-
-
 .hero_content {
     width: 100%;
     display: flex; 
@@ -14,7 +12,9 @@
     height: fit-content;
     max-width: 40vw;
     font-size: 42px;
+    font-weight: 700;
 }
+
 
 /* Define a media query for screen widths below 768px */
 @media (max-width: 768px) {
@@ -26,57 +26,8 @@
     }
 
     .hero_text_container {
-        font-size: 36px;
+        font-size: 30px;
         max-width: 80vw;
+        text-align: center;
     }
-}
-
-
-.phoneInput::placeholder {
-    color: #F94D00; /* Replace 'red' with any color you want */
-}
-
-/* normal text input styling */
-.searchInput {
-    font-size: 16px; /* Adjust the font size as needed */
-    border-radius: 5px; /* Rounded corners */
-    /* height: 50px; */
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-width: 0;
-    background-color: #FFB788;
-    outline: none; /* Removes the default focus outline */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus */
-    caret-color: black;
-    margin-top: 16px;
-    color: white; 
-}
-
-/* normal text input styling */
-.searchInput::placeholder {
-    color: #F94D00;
-    opacity: 1; 
-}
-
-
-
-/* search button style */
-.buttonStyle {
-    font-size: 16px; /* Consistent font size with the input */
-    border-radius: 5px; /* Rounded corners for visual consistency */
-    height: 45px; /* Matching height for uniformity */
-    border: none;
-    background-color: #F94D00; /* Same background color for consistency */
-    outline: none; /* Removes the default focus outline */
-    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus effects */
-    color: white; /* Text color that contrasts with the background */
-    cursor: pointer; /* Changes the cursor to indicate it's clickable */
-    padding: 0 20px; /* Padding to ensure content is not too cramped */
-    margin-top: 16px; /* Space above the button for consistency */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
 }

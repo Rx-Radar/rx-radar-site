@@ -1,0 +1,90 @@
+
+.prescription_search_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    background-color: #FBCEB1;
+    height: fit-content;
+    width: 40vw;
+    border-radius: 12px;
+    border: 2px solid #F94D00;
+    padding: 12px;
+    gap: 12px;
+    min-width: 400px;
+}
+
+.medication_options {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 12px;    
+}
+
+.option_input_pair {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 12px;
+}
+
+/* Define a media query for screen widths below 768px */
+@media (max-width: 768px) {
+    .medication_parameters {
+        flex-direction: column;
+        gap: none;
+    }
+
+    .prescription_search_form {
+        min-width: 400px;
+    }
+}
+
+
+.phoneInput::placeholder {
+    color: #F94D00; /* Replace 'red' with any color you want */
+}
+
+/* normal text input styling */
+.searchInput {
+    font-size: 16px; /* Adjust the font size as needed */
+    border-radius: 5px; /* Rounded corners */
+    /* height: 50px; */
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-width: 0;
+    background-color: #FFB788;
+    outline: none; /* Removes the default focus outline */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus */
+    caret-color: black;
+    color: white; 
+}
+
+/* normal text input styling */
+.searchInput::placeholder {
+    color: #F94D00;
+    opacity: 1; 
+}
+
+
+
+/* search button style */
+.buttonStyle {
+    font-size: 16px; /* Consistent font size with the input */
+    border-radius: 5px; /* Rounded corners for visual consistency */
+    height: 45px; /* Matching height for uniformity */
+    border: none;
+    background-color: #F94D00; /* Same background color for consistency */
+    outline: none; /* Removes the default focus outline */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover and focus effects */
+    color: white; /* Text color that contrasts with the background */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    padding: 0 20px; /* Padding to ensure content is not too cramped */
+    margin-top: 16px; /* Space above the button for consistency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
