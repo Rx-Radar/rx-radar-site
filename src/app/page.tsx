@@ -117,7 +117,7 @@ export default function Index() {
     const [location, setLocation] = useState<string>('')
 
     return (
-      <div style={{width: '100vw', height: '100vh', display: 'flex', overflowY: 'auto', flexDirection: 'column'}}>
+      <div style={{width: '100vw', height: '100vh', display: 'flex', overflowY: 'auto', flexDirection: 'column', backgroundColor: 'purple'}}>
         
         {/* main row contents */}
         <div className={styles.hero_content}>

@@ -11,8 +11,7 @@
     padding: 12px;
     gap: 12px;
     min-width: 400px;
-    width: 600px;
-    /* width: 30vw; */
+    width: 40vw;
 }
 
 .medication_options {
@@ -43,7 +42,7 @@
 
     .prescription_search_form {
         align-items: center;
-        width: 300px;
+        min-width: 40vw;
     }
 
     .disclaimer {
