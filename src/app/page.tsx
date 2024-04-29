@@ -58,7 +58,7 @@ export default function Index() {
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
         .then(async (userSessionToken) => {
-          await makeInitSearchPost(userSessionToken) //######## uncomment this to call api ########
+          // await makeInitSearchPost(userSessionToken) //######## uncomment this to call api ########
           setSearchState('SEARCH_STARTED');
         })
         .catch((error) => console.log(error));
@@ -167,10 +167,12 @@ export default function Index() {
   const VerificationContent = () => {
     return (
       <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-          {/* {(loading && !verificationCodeSent) ? <Loader /> : <Confirmation />} */}
-          <RxRadarLogoBeacon />
-          <p style={{fontSize: 32, fontWeight: '700', marginBottom: 100}}>Enter verification code to complete medication search</p>
-          <ReactInputVerificationCode length={6} autoFocus={true} placeholder='' onCompleted={(code) => verifyCodeEntered(code)}/>
+          
+          <p className={styles.enter_verification_code_text}>Enter SMS verification code to continue</p>
+          
+          <div className={styles.input_verification}>
+            <ReactInputVerificationCode length={6} autoFocus={true} placeholder='' onCompleted={(code) => verifyCodeEntered(code)}/>
+          </div>
       </div>
     );
   }
@@ -178,9 +180,9 @@ export default function Index() {
   const SearchSentContent = () => {
     return (
       <div style={{ width: '100vw', height: '100vh', backgroundColor: '#FBCEB1', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-        <div>
-          <p style={{fontSize: 60, fontWeight: '700', color: 'black'}}>Searching for meds!</p>
-          <p style={{fontSize: 40, fontWeight: '700', color: '#F94D00'}}>We'll text you soon</p>
+        <div className={styles.hero_text_container}>
+          <p style={{color: 'black'}}>Searching for meds!</p>
+          <p style={{color: '#F94D00'}}>We'll text you soon</p>
         </div>
       </div>
     );

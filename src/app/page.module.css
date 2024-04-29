@@ -17,6 +17,11 @@
     font-weight: 700;
 }
 
+.enter_verification_code_text {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 100px;
+}
 
 /* Define a media query for screen widths below 768px */
 @media (max-width: 768px) {
@@ -31,5 +36,22 @@
         max-width: 80vw;
         margin-top: 100px;
         text-align: center;
+    }
+
+    .input_verification {
+        --ReactInputVerificationCode-itemWidth: 2.5rem;
+        --ReactInputVerificationCode-itemHeight: 3.5rem;
+    }
+
+    .input_verification .ReactInputVerificationCode__item {
+        position: relative;
+        color: #eb2121;
+        font-weight: 500;
+    }
+
+    .enter_verification_code_text {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 100px;
     }
 }
