@@ -29,6 +29,7 @@
     .hero_text_container {
         font-size: 20px;
         max-width: 80vw;
+        margin-top: 100px;
         text-align: center;
     }
 }
