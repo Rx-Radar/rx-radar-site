@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
-
 import axios from 'axios';
+
+// import types
+import { PrescriptionSearch } from '../../types/prescriptionSearch';
 
 // npm inports
 import 'react-international-phone/style.css';
@@ -18,22 +20,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { NavigationBar } from '../../components/NavigationBar/NavigationBar';
 import QuantumLoader from '../../components/LoaderAnimations/QuantumLoader/QuantumLoader';
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
-import { setupRecaptcha, sendSMSVerification, signUserIn} from './verifier';
+import { setupRecaptcha, sendSMSVerification, signUserIn} from '../../utils/AuthVerifier';
 import { PrescriptionSearchForm } from '../../components/PrescriptionSearchForm/PrescriptionSearchFormProps';
-
-import { ReactSVG } from 'react-svg'
-
+import { validatePrescriptionSearch } from '../../utils/ValidatePrescriptionSearch';
 
 
 export default function Index() {
   const navigation = useRouter(); // navigation router
 
-  // true when the application is loading
   const [loading, setLoading] = useState<boolean>(false); 
+  const [prescriptionSearch, setPrescriptionSearch] = useState<PrescriptionSearch>();
 
   // user search process state
   type SearchState = 'START' | 'VERIFICATION_SENT' | 'SEARCH_STARTED';
   const [searchState, setSearchState] = useState<SearchState>('START');
+
 
   // on page load setup
   useEffect(() => {
@@ -42,41 +43,57 @@ export default function Index() {
 
 
   // triggers medication search
-  const initializeMedicationSearch = () => {
-    const { number } = validateForm(); // unpack validate form data
-
+  const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
     setLoading(true);
-    sendSMSVerification(number)
+
+    const { success, error, newPrescriptionSearch} = validatePrescriptionSearch(prescriptionSearch);
+    if (!success) {
+      // user filled some part of the form wrong
+      toast.error(error, { position: "bottom-center", autoClose: 1000, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
+      return
+    }
+
+    sendSMSVerification(prescriptionSearch.phoneNumber)
         .then((successMessage) => {
           setSearchState('VERIFICATION_SENT');
           setLoading(false);
         })
         .catch((error) => console.error('Error sending SMS verification:', error));
+
+    // set local prescriptionSearch
+    setPrescriptionSearch(newPrescriptionSearch);
   }
 
-  // verifies user entered code
+  // verifies sms auth on user enter code completion
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
-        .then(async (userSessionToken) => {
-          // await makeInitSearchPost(userSessionToken) //######## uncomment this to call api ########
+        .then((userSessionToken) => {
           setSearchState('SEARCH_STARTED');
+          makeInitSearchPost(userSessionToken)
         })
         .catch((error) => console.log(error));
   }
 
+  // calls init-search-bland endpoint to initiate prescription search
   async function makeInitSearchPost(userSessionToken: string) {
-    const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search-bland'; // calls init-search-bland MVP
-  
+
+    const url = 'https://northamerica-northeast1-rxradar.cloudfunctions.net/init-search-bland'; // calls init-search-bland [[MVP]]
+
+    if (!prescriptionSearch) {
+      toast.error('woah, somethings not working. Try searching again', { position: "bottom-center", autoClose: 1000, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
+      return
+    }
+
     const body = {
       user_session_token: userSessionToken,
-      phone_number: '+12037674296',
-      user_location: 'Troy, NY',
-      medication: {
-        name: 'Focalin',
-        dosage: '10',
-        brand_or_generic: 'generic',
-        quantity: '90',
-        type: 'IR'
+      phone_number: prescriptionSearch.phoneNumber,
+      user_location: prescriptionSearch.location,
+      prescription: {
+        name: prescriptionSearch.prescription.name,
+        dosage: prescriptionSearch.prescription.dosage,
+        brand_or_generic: prescriptionSearch.prescription.brand,
+        quantity: prescriptionSearch.prescription.quantity,
+        type: prescriptionSearch.prescription.type
       }
     };
   
@@ -92,33 +109,14 @@ export default function Index() {
       return response.data;
     } catch (error) {
       console.error('Error:', error);
-      // handle errors
+      toast.error('whoah, somethings not working. Try searching again', { position: "bottom-center", autoClose: 1000, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
     }
-  }
-
-  // validate medication search form data
-  const validateForm = (): {number: string; medication: string; dosage: string, brand: string} => {
-    // #########################################################
-    // RETURN TEST DATA
-    return {number: '+16505553434', medication: 'adderall', dosage: '10mg', brand: 'generic'}
-    // #########################################################
   }
 
   // main hero content with medication search form
   const HeroContent = () => {
-
-    // user form fields
-    const [medication, setMedication] = useState<string>('');
-    const [dosage, setDosage] = useState<string>('');
-    const [type, setType] = useState<string>('');
-    const [brand, setBrand] = useState<string>('');
-    const [quantity, setQuantity] = useState<string>('');
-    const [phoneNumber, setPhoneNumber] = useState<string>('');
-    const [location, setLocation] = useState<string>('')
-
     return (
       <div style={{width: '100vw', height: '100vh', display: 'flex', overflowY: 'auto', flexDirection: 'column'}}>
-        
         {/* main row contents */}
         <div className={styles.hero_content}>
 
@@ -131,34 +129,9 @@ export default function Index() {
 
           {/* right box (input form)*/}
           <PrescriptionSearchForm loading={false} initializeMedicationSearch={initializeMedicationSearch}/>
-
         </div>
 
-
-        {/* <p style={{width: 200}}>
-          MORE CONTENT HERE
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-        asdfgsdfgsdfgsdfgsdfg
-
-        </p> */}
-
+        {/* ...rest of page content here */}
       </div>
     );
   }
@@ -167,7 +140,6 @@ export default function Index() {
   const VerificationContent = () => {
     return (
       <div style={{ width: '100vw', height: '100vh', backgroundColor: 'white', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-          
           <p className={styles.enter_verification_code_text}>Enter SMS verification code to continue</p>
           
           <div className={styles.input_verification}>
@@ -177,6 +149,7 @@ export default function Index() {
     );
   }
 
+  // displays search sent page
   const SearchSentContent = () => {
     return (
       <div style={{ width: '100vw', height: '100vh', backgroundColor: '#FBCEB1', color: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -199,21 +172,16 @@ export default function Index() {
 
   // return main page contents
   return (
-    <>
-      {/* <ReactSVG src='/HeroPageBackground.svg' style={{position: 'absolute', width: '100%', height: '100%', objectFit: 'none'}} /> */}
+    <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
+      <NavigationBar/>
 
-      <div style={{position: 'relative', width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', color: 'black'}}>    
-        <NavigationBar/>
+      { searchState == 'START' && <HeroContent/> }
+      { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }
+      { searchState == 'SEARCH_STARTED' && <SearchSentContent/> }
 
-        { searchState == 'START' && <HeroContent/> }
-        { searchState == 'VERIFICATION_SENT' && <VerificationContent/> }
-        { searchState == 'SEARCH_STARTED' && <SearchSentContent/> }
-
-        <div id='recaptcha'></div>
-        <ToastContainer />
-      </div>
-
-    </>
+      <div id='recaptcha'></div>
+      <ToastContainer />
+    </div>
   );
 }
 

@@ -1,12 +1,9 @@
 import { ConfirmationResult, RecaptchaVerifier } from "firebase/auth";
-import { auth } from "./firebase-config";
+import { auth } from "../src/app/firebase-config";
 import { signInWithPhoneNumber } from "firebase/auth";
 
-// // navigationUtils.js
-// import Router from 'next/router';
-
-import { ToastContainer, toast, Bounce } from 'react-toastify';
-
+// npm inports
+import { toast, Bounce } from 'react-toastify';
 
 interface CustomWindow extends Window {
     confirmationResult?: ConfirmationResult | null;
