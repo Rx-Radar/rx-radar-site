@@ -10,7 +10,7 @@ import { Tooltip } from 'react-tooltip'
 import { useState } from 'react';
 import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
-import { PrescriptionSearch } from '../../types/prescriptionSearch';
+import { PrescriptionSearch } from '../../types/PrescriptionSearch';
 
 
 // search input props

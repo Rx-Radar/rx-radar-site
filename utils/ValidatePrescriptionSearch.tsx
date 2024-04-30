@@ -1,5 +1,5 @@
 import { Prescription } from "../types/Prescription";
-import { PrescriptionSearch } from "../types/prescriptionSearch";
+import { PrescriptionSearch } from "../types/PrescriptionSearch";
 
 
 /**

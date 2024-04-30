@@ -22,7 +22,7 @@ import { PrescriptionSearchForm } from '../../components/PrescriptionSearchForm/
 import { validatePrescriptionSearch } from '../../utils/ValidatePrescriptionSearch';
 
 // import types
-import { PrescriptionSearch } from '../../types/prescriptionSearch';
+import { PrescriptionSearch } from '../../types/PrescriptionSearch';
 
 
 export default function Index() {
