@@ -7,9 +7,6 @@ import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import axios from 'axios';
 
-// import types
-import { PrescriptionSearch } from '../../types/prescriptionSearch';
-
 // npm inports
 import 'react-international-phone/style.css';
 import ReactInputVerificationCode from 'react-input-verification-code';
@@ -23,6 +20,9 @@ import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 import { setupRecaptcha, sendSMSVerification, signUserIn} from '../../utils/AuthVerifier';
 import { PrescriptionSearchForm } from '../../components/PrescriptionSearchForm/PrescriptionSearchFormProps';
 import { validatePrescriptionSearch } from '../../utils/ValidatePrescriptionSearch';
+
+// import types
+import { PrescriptionSearch } from '../../types/prescriptionSearch';
 
 
 export default function Index() {
