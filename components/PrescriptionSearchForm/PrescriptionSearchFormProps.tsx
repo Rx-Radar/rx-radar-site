@@ -32,10 +32,10 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
 
   // form options
   const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
-  const dosages = ['10mg', '20mg', '30mg', '40mg', '80mg', '100mg', '120mg'];
+  const dosages = ['5mg', '10mg', '15mg', '20mg', '25mg', '30mg', '35mg', '40mg', '45mg', '50mg', '55mg', '60mg', '65mg', '70mg', '75mg', '80mg', '85mg'];
   const brands = ['Brand', 'Generic', 'Either'];
   const quantities = ['30', '60', '80', '100'];
-  const types = ['IR', 'XR', 'none'];
+  const types = ['IR', 'XR', 'N/A'];
 
 
   // Button; triggers medication search

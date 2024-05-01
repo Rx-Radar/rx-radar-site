@@ -41,8 +41,8 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
  * @returns 
  */
 function validateAndFormatPrescription(prescription: Prescription): { success: boolean, error: string | undefined, updatedPrescription: Prescription | undefined }  {
-    const types: { [key: string]: string } = {'IR': 'immediate release', 'XR': 'extended release', 'none': 'n/a'} // used for 
-    const dosages: { [key: string]: string } = {'10mg': '10', '20mg': '20', '30mg': '30', '80mg': '80', '100mg': '100', '120mg': '120'}
+    const types: { [key: string]: string } = {'IR': 'immediate release', 'XR': 'extended release', 'N/A': 'n/a'} // used for 
+    const dosages: { [key: string]: string } = {'10mg': '10', '15mg': '15', '20mg': '20', '25mg': '25', '30mg': '30', '35mg': '35', '40mg': '40', '45mg': '45', '50mg': '50', '55mg': '55', '60mg': '60', '65mg': '65', '70mg': '70', '75mg': '75', '80mg': '80', '85mg': '85'}
 
     const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
     const brands = ['Brand', 'Generic', 'Either'];
