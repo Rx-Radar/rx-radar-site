@@ -41,11 +41,12 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
  * @returns 
  */
 function validateAndFormatPrescription(prescription: Prescription): { success: boolean, error: string | undefined, updatedPrescription: Prescription | undefined }  {
-    const types: { [key: string]: string } = {'IR': 'immediate release', 'XR': 'extended release', 'N/A': 'n/a'} // used for 
+    const types: { [key: string]: string } = {'IR': 'immediate release', 'XR': 'extended release', 'N/A': 'n/a'};
+    const brands: { [key: string]: string } = {'Brand': 'Brand', 'Generic': 'Generic', 'Either': 'Either Brand or Generic'};
     const dosages: { [key: string]: string } = {'5mg': '5', '10mg': '10', '15mg': '15', '20mg': '20', '25mg': '25', '30mg': '30', '35mg': '35', '40mg': '40', '45mg': '45', '50mg': '50', '55mg': '55', '60mg': '60', '65mg': '65', '70mg': '70', '75mg': '75', '80mg': '80', '85mg': '85'}
 
     const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
-    const brands = ['Brand', 'Generic', 'Either'];
+    // const brands = ['Brand', 'Generic', 'Either'];
     const quantities = ['30', '60', '80', '100'];
     
     // takes in a key (user search value), a list to find the corresponding value in --> returns success, and error string or value corresponding to key
@@ -64,6 +65,12 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
         return { success: false, error: dosageResult, updatedPrescription: undefined };
     }
 
+    // validate and reformat prescription brand
+    const { success: brandSuccess, result: brandResult} = getValue(prescription.brand, brands, 'brand');
+    if (!brandSuccess) {
+        return { success: false, error: brandResult, updatedPrescription: undefined };
+    }
+
     // validate and reformat prescription type
     const { success: typeSuccess, result: typeResult } = getValue(prescription.type, types, 'type');
     if (!typeSuccess) {
@@ -72,10 +79,6 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
 
     if (!medications.includes(prescription.name)) {
         return { success: false, error: 'invalid medication name', updatedPrescription: undefined };
-    }
-
-    if (!brands.includes(prescription.brand)) {
-        return { success: false, error: 'invalid brand', updatedPrescription: undefined };
     }
 
     if (!quantities.includes(prescription.quantity)) {
