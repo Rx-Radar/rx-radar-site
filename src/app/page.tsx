@@ -19,7 +19,7 @@ import QuantumLoader from '../../components/LoaderAnimations/QuantumLoader/Quant
 import RxRadarLogoBeacon from './images/RxRadarLogoBeacon';
 import { setupRecaptcha, sendSMSVerification, signUserIn} from '../../utils/AuthVerifier';
 import { PrescriptionSearchForm } from '../../components/PrescriptionSearchForm/PrescriptionSearchFormProps';
-import { validatePrescriptionSearch } from '../../utils/ValidatePrescriptionSearch';
+import { validatePrescriptionSearch, isValidSearchTime } from '../../utils/ValidatePrescriptionSearch';
 
 // import types
 import { PrescriptionSearch } from '../../types/PrescriptionSearch';
@@ -45,6 +45,12 @@ export default function Index() {
   // triggers medication search
   const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
     setLoading(true);
+
+    // check if search is within pharmacy hours
+    if (!isValidSearchTime()) {
+      toast.error('Try searching during pharmacy hours', { position: "bottom-center", autoClose: 1000, hideProgressBar: true, pauseOnHover: true, progress: undefined, theme: "light", transition: Bounce }); 
+      return
+    }
 
     const { success, error, newPrescriptionSearch} = validatePrescriptionSearch(prescriptionSearch);
     if (!success) {
