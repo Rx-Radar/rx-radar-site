@@ -108,8 +108,7 @@ export default function Index() {
 
   // calls init-search-bland endpoint to initiate prescription search
   async function makeInitSearchPost(userSessionToken: string) {
-    const url =
-      "https://us-central1-rxradar.cloudfunctions.net/init-search-twilio-bland"; // calls init-search-bland [[MVP]]
+    const url = ""; // calls init-search-bland [[MVP]]
 
     if (!prescriptionSearch) {
       toast.error("woah, somethings not working. Try searching again", {
