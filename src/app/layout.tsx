@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Head from 'next/head'
 import Script from 'next/script'
 import "./globals.css";
 
@@ -18,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-98YDGN7F36"></Script>
         <Script id="google-analytics">
           {`
@@ -28,7 +27,7 @@ export default function RootLayout({
               gtag('config', 'G-98YDGN7F36');
           `}
         </Script>
-      </Head>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
