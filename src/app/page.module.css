@@ -8,6 +8,17 @@
     gap: 50px;
     padding: 20px;
 }
+.footer {
+    font-size: 13px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    color: #F94E02;
+    background-color: #FBCEB1; /* Light grey background */
+    text-align: center;
+    padding: 5px 0;
+    border-top: 1px solid #F94E02;
+  }
 
 .hero_text_container {
     padding: 10;
