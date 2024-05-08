@@ -103,11 +103,6 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
         return { success: false, error: 'invalid medication name', updatedPrescription: undefined };
     }
 
-    if (!quantities.includes(prescription.quantity)) {
-        return { success: false, error: 'invalid quantity', updatedPrescription: undefined };
-    }
-
-
     // update prescription to be formatted for bland speaking
     const updatedPrescription: Prescription = {
         name: prescription.name,
@@ -123,7 +118,11 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
 
 // validate location
 function validateLocation(location: string): boolean {
-    return true; // set to default for MVP
+    const locations = ['Troy, NY', 'Boston, MA'];
+    if (!locations.includes(location)) {
+        return false;
+    }
+    return true;
 }
 
 // validate phone number

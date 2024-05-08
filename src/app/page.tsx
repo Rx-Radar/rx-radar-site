@@ -22,7 +22,7 @@ import {
   sendSMSVerification,
   signUserIn,
 } from "../../utils/AuthVerifier";
-import { PrescriptionSearchForm } from "../../components/PrescriptionSearchForm/PrescriptionSearchFormProps";
+import { PrescriptionSearchForm } from "../../components/PrescriptionSearchForm/PrescriptionSearchForm";
 import {
   validatePrescriptionSearch,
   isValidSearchTime,
@@ -67,8 +67,7 @@ export default function Index() {
       return;
     }
 
-    const { success, error, newPrescriptionSearch } =
-      validatePrescriptionSearch(prescriptionSearch);
+    const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
     if (!success) {
       // user filled some part of the form wrong
       toast.error(error, {

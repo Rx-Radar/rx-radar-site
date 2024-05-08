@@ -1,4 +1,4 @@
-import styles from './PrescriptionSearchFormProps.module.css';
+import styles from './PrescriptionSearchForm.module.css';
 import Link from 'next/link';
 
 
@@ -28,7 +28,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   const [brand, setBrand] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [location, setLocation] = useState<string>('Troy, NY') // harded coded location for MVP
+  const [location, setLocation] = useState<string>('') 
 
   // form options
   const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
@@ -36,6 +36,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   const brands = ['Brand', 'Generic', 'Either'];
   const quantities = ['30', '60', '80', '100'];
   const types = ['IR', 'XR', 'N/A'];
+  const locations = ['Troy, NY', 'Boston, MA'];
 
 
   // Button; triggers medication search
@@ -54,7 +55,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
           quantity: quantity,
           type: type
         },
-        location: location // MVP hard coded to Troy, NY 
+        location: location
       }
       initializeMedicationSearch(prescriptionSearch)
     }
@@ -112,11 +113,8 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
 
           {/* location search (hard coded to Troy, NY) */}
           <div style={{width: '100%'}}>
-            <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 1000}} data-tooltip-content="Check back soon, we're adding new locations.">
-              <div className={styles.searchInput}>
-                <p style={{fontSize: 12, color: '#F94D00'}}>Your Location</p>
-                <input disabled={true} value={'Troy, NY'} style={{width: '100%', fontSize: 16, backgroundColor: '#FFB788', border: 'none', color: 'white'}} autoComplete='phone-number' placeholder="Your address"/> 
-              </div>
+            <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 1000}} data-tooltip-content="We're adding more cities soon!">
+              <OptionInput style={{width: '100%'}} onChange={(option) => setLocation(option)} name='Location' options={locations}/>
             </a>
           </div>
           <Tooltip id="my-tooltip" />
