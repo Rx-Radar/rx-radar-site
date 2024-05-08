@@ -126,8 +126,7 @@ export default function Index() {
 
     const body = {
       user_session_token: userSessionToken,
-      // phone_number: prescriptionSearch.phoneNumber,
-      phone_number: '+16505553434',
+      phone_number: prescriptionSearch.phoneNumber,
       user_location: prescriptionSearch.location,
       prescription: {
         name: prescriptionSearch.prescription.name,

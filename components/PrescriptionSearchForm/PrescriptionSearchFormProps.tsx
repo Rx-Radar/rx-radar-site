@@ -45,8 +45,8 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
     const onClick = () => {
       const prescriptionSearch: PrescriptionSearch = {
 
-        // phoneNumber: '+16505553434', // NUMBER FOR TESTING AUTH VERIFICATION --> corresponds to code 123456
-        phoneNumber: phoneNumber,
+        phoneNumber: '+16505553434', // NUMBER FOR TESTING AUTH VERIFICATION --> corresponds to code 123456
+        // phoneNumber: phoneNumber,
         prescription: {
           name: medication,
           dosage: dosage,
