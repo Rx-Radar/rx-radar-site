@@ -36,7 +36,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   const brands = ['Brand', 'Generic', 'Either'];
   const quantities = ['30', '60', '80', '100'];
   const types = ['IR', 'XR', 'N/A'];
-  const locations = ['Troy, NY', 'Boston, MA'];
+  const locations = ['Troy, NY', 'Boston, MA', 'test'];
 
 
   // Button; triggers medication search

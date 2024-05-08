@@ -118,7 +118,7 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
 
 // validate location
 function validateLocation(location: string): boolean {
-    const locations = ['Troy, NY', 'Boston, MA'];
+    const locations = ['Troy, NY', 'Boston, MA', 'test'];
     if (!locations.includes(location)) {
         return false;
     }
