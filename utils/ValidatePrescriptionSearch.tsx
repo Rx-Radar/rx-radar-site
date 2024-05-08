@@ -4,23 +4,24 @@ import { PrescriptionSearch } from "../types/PrescriptionSearch";
 
 // return true if search within pharmacy hours
 export const isValidSearchTime = (): boolean => {
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+    // const now = new Date();
+    // const currentHour = now.getHours();
+    // const currentMinute = now.getMinutes();
 
-    // Check if current time falls within either of the ranges 8:05 am to 1:15:pm , 2:05: pm to 8:55 pm
-    if (
-        (currentHour === 8 && currentMinute >= 5) || // Morning range: 8:05am - 1:15pm
-        (currentHour > 8 && currentHour < 13) ||
-        (currentHour === 13 && currentMinute <= 15) || 
-        (currentHour === 14 && currentMinute >= 5) || // Afternoon range: 2:05pm - 8:55pm
-        (currentHour > 14 && currentHour < 20) || 
-        (currentHour === 20 && currentMinute <= 55)
-    ) {
-        return true;
-    }
+    // // Check if current time falls within either of the ranges 8:05 am to 1:15:pm , 2:05: pm to 8:55 pm
+    // if (
+    //     (currentHour === 8 && currentMinute >= 5) || // Morning range: 8:05am - 1:15pm
+    //     (currentHour > 8 && currentHour < 13) ||
+    //     (currentHour === 13 && currentMinute <= 15) || 
+    //     (currentHour === 14 && currentMinute >= 5) || // Afternoon range: 2:05pm - 8:55pm
+    //     (currentHour > 14 && currentHour < 20) || 
+    //     (currentHour === 20 && currentMinute <= 55)
+    // ) {
+    //     return true;
+    // }
 
-    return false;
+    // return false;
+    return true;
 }
 
 
