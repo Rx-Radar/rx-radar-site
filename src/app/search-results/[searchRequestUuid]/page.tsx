@@ -25,7 +25,7 @@ export default function SearchResultPage({params}: {
       <div style={{backgroundColor: 'white', display: 'flex', flexDirection: 'column', padding: 16, borderRadius: 16, width: 'fit-content'}}>
         <p>Your search for</p>
       </div>
-      <p>Dynamic Text based on search_request_uuid: {params.searchRequestUuid}</p>
+      <p>search_request_uuid: {params.searchRequestUuid}</p>
     </div>
   );
 };
