@@ -20,9 +20,9 @@ export default function SearchResultPage({params}: {
   // })
 
   return (
-    <div style={{backgroundColor: 'orange', width: '100%', height: '100%', padding: 20}}>
+    <div style={{backgroundColor: 'white', width: '100%', height: '100%', padding: 20}}>
       <h1>RxRadar: Prescription search overview</h1>
-      <div style={{backgroundColor: 'white', display: 'flex', flexDirection: 'column', padding: 16, borderRadius: 16, width: 'fit-content'}}>
+      <div style={{backgroundColor: '#FBCEB1', border: '2px solid #F94E02', display: 'flex', flexDirection: 'column', padding: 16, borderRadius: 16, width: 'fit-content'}}>
         <p>Your search for</p>
       </div>
       <p>search_request_uuid: {params.searchRequestUuid}</p>
