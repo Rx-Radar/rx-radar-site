@@ -1,5 +1,8 @@
 import { Prescription } from "../types/Prescription";
 import { PrescriptionSearch } from "../types/PrescriptionSearch";
+import { SearchLocation } from "../types/SearchLocation";
+// import geolib from 'geolib';
+import { getDistance } from "geolib"
 
 
 // return true if search within pharmacy hours
@@ -37,7 +40,7 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
 
     // validate location
     if (!validateLocation(prescriptionSearch.location)) {
-        return { success: false, error: 'invalid location', newPrescriptionSearch: undefined };
+        return { success: false, error: 'we currently only support Boston, MA and Troy, NY', newPrescriptionSearch: undefined };
     }
 
     // validate/format prescription
@@ -116,14 +119,26 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
 }
 
 
-// validate location
-function validateLocation(location: string): boolean {
-    const locations = ['Troy, NY', 'Boston, MA', 'test'];
-    if (!locations.includes(location)) {
-        return false;
+// Function to check if a location is within 10 miles of valid locations
+function validateLocation(userLocation: SearchLocation | undefined): boolean {
+
+    if(!userLocation) return false; // catch empty location
+
+    const boston = { latitude: 42.3601, longitude: -71.0589 }; // Boston, MA
+    const troy = { latitude: 42.7284, longitude: -73.6918 }; // Troy, NY
+    const validLocations = [boston, troy];
+
+    const MIN_DISTANCE_REQUIRED = 24140; // 15 miles 
+
+    for (const location of validLocations) {
+      // check if current location is valid
+      const formattedLocation = { latitude: userLocation.lat, longitude: userLocation.lon };
+      const distance = getDistance(formattedLocation, location, 1);
+      console.log('distance working: ', distance)
+      if (distance <= MIN_DISTANCE_REQUIRED) return true;
     }
-    return true;
-}
+    return false;
+  }
 
 // validate phone number
 function validatePhoneNumber(phoneNumber: string): boolean {

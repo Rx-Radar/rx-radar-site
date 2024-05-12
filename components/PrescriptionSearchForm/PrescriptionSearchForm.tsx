@@ -1,17 +1,18 @@
 import styles from './PrescriptionSearchForm.module.css';
 import Link from 'next/link';
 
-
 // npm inports
 import { SearchInput } from '../SearchInput/SearchInput';
 import { OptionInput } from '../OptionInput/OptionInput';
 import { PhoneInput } from 'react-international-phone';
 import { Tooltip } from 'react-tooltip'
 import { useState } from 'react';
-import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
+import { toast, Bounce } from "react-toastify";
 
 import { PrescriptionSearch } from '../../types/PrescriptionSearch';
+import { SearchLocation } from '../../types/SearchLocation';
 
+import AutoComplete from "react-google-autocomplete";
 
 // search input props
 interface PrescriptionSearchFormProps {
@@ -28,7 +29,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   const [brand, setBrand] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [location, setLocation] = useState<string>('') 
+  const [userLocation, setUserLocation] = useState<SearchLocation | undefined>(undefined);
 
   // form options
   const medications = ['Ritalin', 'Adderall', 'Focalin', 'Dexedrine', 'Daytrana', 'Vyvanse'];
@@ -36,8 +37,6 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   const brands = ['Brand', 'Generic', 'Either'];
   const quantities = ['30', '60', '80', '100'];
   const types = ['IR', 'XR', 'N/A'];
-  const locations = ['Troy, NY', 'Boston, MA', 'test'];
-
 
   // Button; triggers medication search
   const SearchForMedicationButton = () => {
@@ -55,7 +54,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
           quantity: quantity,
           type: type
         },
-        location: location
+        location: userLocation
       }
       initializeMedicationSearch(prescriptionSearch)
     }
@@ -73,6 +72,27 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
         <p style={{color: 'white', fontWeight: '600'}}>Find medication</p>
         </button>
     );
+  }
+
+  // set user postion lat lon
+  function setUserPos(placeResult: google.maps.places.PlaceResult) {
+    const location = placeResult.geometry?.location;
+
+    if (location) {
+      // update user location
+      setUserLocation({lat: location.lat(), lon: location.lng()}) 
+    } else {
+      
+      toast.error("Try a different address", {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   }
 
   return (
@@ -113,11 +133,22 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
 
           {/* location search (hard coded to Troy, NY) */}
           <div style={{width: '100%'}}>
-            <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 1000}} data-tooltip-content="We're adding more cities soon!">
-              <OptionInput style={{width: '100%'}} onChange={(option) => setLocation(option)} name='Location' options={locations}/>
+            <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 1000}} data-tooltip-content="Search any address in Boston, MA or Troy, NY">
+              <AutoComplete
+              placeholder="Your Address"
+              apiKey={'AIzaSyDxwmfjF7IGF4z5vxUH1quzK7W9lYjJTzE'}
+              onPlaceSelected={setUserPos}
+              options={{
+                types: ['address'],
+                componentRestrictions: { country: 'us' }, // Restrict to United States
+              }}
+              style={{width: '100%', height: 50}}
+              className={styles.searchInput}
+              />
             </a>
           </div>
           <Tooltip id="my-tooltip" />
+
 
           {/* search send button */}
           <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>

@@ -1,4 +1,5 @@
 import { Prescription } from "./Prescription"
+import { SearchLocation } from "./SearchLocation";
 
 /**
  * Prescription Search
@@ -6,5 +7,5 @@ import { Prescription } from "./Prescription"
 export type PrescriptionSearch = {
     prescription: Prescription; // user prescription
     phoneNumber: string; // user phone number 
-    location: string; // user search location 
-}
+    location: SearchLocation | undefined; // user search location 
+} 
