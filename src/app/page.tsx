@@ -50,6 +50,8 @@ export default function Index() {
   const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
     setLoading(true);
 
+    window.location.href = 'https://buy.stripe.com/test_14k5lg5B56Px1RC4gg';
+
     // validate prescription search
     const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
     if (!success) {

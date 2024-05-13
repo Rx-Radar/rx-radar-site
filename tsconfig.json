@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/api/stripe-webhook.js"  ],
   "exclude": [
     "node_modules"
   ]
