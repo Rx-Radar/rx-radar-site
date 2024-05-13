@@ -19,6 +19,7 @@ export const config = {
 };
 
 const stripeWebhookHandler = async (request, response) => {
+  console.log('checking this thing', request)
   if (request.method === 'POST') {
 
     if (typeof sig !== 'string') {
