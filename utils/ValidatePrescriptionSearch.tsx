@@ -49,6 +49,11 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
         return { success: false, error: error, newPrescriptionSearch: undefined }
     }
 
+    // validate search hours
+    if (!isValidSearchTime()) {
+        return { success: false, error: 'Try searching during pharmacy hours', newPrescriptionSearch: undefined }
+    }
+
     // create a new formatted prescription
     const newPrescriptionSearch: PrescriptionSearch = {
         phoneNumber: prescriptionSearch.phoneNumber,

@@ -35,8 +35,7 @@ export default function Index() {
   const navigation = useRouter(); // navigation router
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [prescriptionSearch, setPrescriptionSearch] =
-    useState<PrescriptionSearch>();
+  const [prescriptionSearch, setPrescriptionSearch] = useState<PrescriptionSearch>();
 
   // user search process state
   type SearchState = "START" | "VERIFICATION_SENT" | "SEARCH_STARTED";
@@ -47,40 +46,19 @@ export default function Index() {
     setupRecaptcha();
   }, []);
 
-  // triggers medication search
-  const initializeMedicationSearch = (
-    prescriptionSearch: PrescriptionSearch
-  ) => {
+  // triggers medication search on search form completion
+  const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
     setLoading(true);
 
-    // check if search is within pharmacy hours
-    if (!isValidSearchTime()) {
-      toast.error("Try searching during pharmacy hours", {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+    // validate prescription search
+    const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
+    if (!success) {
+      showPopup('error', error);
       return;
     }
 
-    const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
-    if (!success) {
-      // user filled some part of the form wrong
-      toast.error(error, {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      return;
-    }
+    // set prescriptionSearch
+    setPrescriptionSearch(newPrescriptionSearch);
 
     sendSMSVerification(prescriptionSearch.phoneNumber)
       .then((successMessage) => {
@@ -90,9 +68,6 @@ export default function Index() {
       .catch((error) =>
         console.error("Error sending SMS verification:", error)
       );
-
-    // set local prescriptionSearch
-    setPrescriptionSearch(newPrescriptionSearch);
   };
 
   // verifies sms auth on user enter code completion
@@ -107,19 +82,10 @@ export default function Index() {
 
   // calls init-search-bland endpoint to initiate prescription search
   async function makeInitSearchPost(userSessionToken: string) {
-    const url =
-      "https://us-central1-rxradar.cloudfunctions.net/init-search-twilio-bland"; // calls init-search-bland [[MVP]]
+    const url = "https://us-central1-rxradar.cloudfunctions.net/prod-process-search-request"; // calls process-search-request
 
     if (!prescriptionSearch) {
-      toast.error("woah, somethings not working. Try searching again", {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      showPopup('error', 'woah, somethings not working. Try again');
       return;
     }
 
@@ -142,21 +108,10 @@ export default function Index() {
           "Content-Type": "application/json",
         },
       });
-
-      console.log("Response:", response.data);
-      console.log("Status:", response.status);
       return response.data;
     } catch (error) {
       console.error("Error:", error);
-      toast.error("whoah, somethings not working. Try searching again", {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      showPopup('error', 'woah, somethings not working. Try again');
     }
   }
 
@@ -164,13 +119,13 @@ export default function Index() {
   const HeroContent = () => {
     return (
       <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          overflowY: "auto",
-          flexDirection: "column",
-        }}
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        overflowY: "auto",
+        flexDirection: "column",
+      }}
       >
         {/* main row contents */}
         <div className={styles.hero_content}>
@@ -183,8 +138,8 @@ export default function Index() {
 
           {/* right box (input form)*/}
           <PrescriptionSearchForm
-            loading={false}
-            initializeMedicationSearch={initializeMedicationSearch}
+          loading={false}
+          initializeMedicationSearch={initializeMedicationSearch}
           />
         </div>
 
@@ -214,10 +169,10 @@ export default function Index() {
 
         <div className={styles.input_verification}>
           <ReactInputVerificationCode
-            length={6}
-            autoFocus={true}
-            placeholder=""
-            onCompleted={(code) => verifyCodeEntered(code)}
+          length={6}
+          autoFocus={true}
+          placeholder=""
+          onCompleted={(code) => verifyCodeEntered(code)}
           />
         </div>
       </div>
@@ -228,16 +183,16 @@ export default function Index() {
   const SearchSentContent = () => {
     return (
       <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "#FBCEB1",
-          color: "black",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
+      style={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#FBCEB1",
+        color: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
       >
         <div className={styles.hero_text_container}>
           <p style={{ color: "black" }}>Searching for meds!</p>
@@ -252,10 +207,10 @@ export default function Index() {
     return (
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
         }}
       >
         <QuantumLoader />
@@ -277,19 +232,45 @@ export default function Index() {
     );
   };
 
+  // handles showing popup messages
+  const showPopup = (type: string, msg: string | undefined) => {
+    if (type == 'error') {
+      toast.error(msg, {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    toast(msg, {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      pauseOnHover: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  }
+
   // return main page contents
   return (
     <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "black",
-      }}
+    style={{
+      position: "relative",
+      width: "100vw",
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "black",
+    }}
     >
       <NavigationBar />
 
@@ -297,7 +278,7 @@ export default function Index() {
       {searchState == "VERIFICATION_SENT" && <VerificationContent />}
       {searchState == "SEARCH_STARTED" && <SearchSentContent />}
 
-      <div id="recaptcha"></div>
+      <div id="recaptcha"/>
       <ToastContainer />
       <FooterBar />
     </div>
