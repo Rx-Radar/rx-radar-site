@@ -12,13 +12,13 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 });
 
 // Stripe requires the raw body to construct the event
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
-const stripeWebhookHandler = async (request, response) => {
+export async function POST(request) {
     console.log('checking this thing', request)
     if (request.method === 'POST') {
 
@@ -37,25 +37,30 @@ const stripeWebhookHandler = async (request, response) => {
     }
     // Handle the event based on its type
     switch (event.type) {
-    case 'payment_intent.succeeded':
-        // Handle payment success event
-        console.log('Payment intent succeeded:', event.data.object);
-        break;
-    case 'payment_intent.payment_failed':
-        // Handle payment failure event
-        console.log('Payment intent failed:', event.data.object);
-        break;
-    // Add more cases for other event types as needed
-    default:
-        console.log(`Unhandled event type: ${event.type}`);
+        case 'payment_intent.succeeded':
+            // Handle payment success event
+            console.log('Payment intent succeeded:', event.data.object);
+            break;
+        case 'payment_intent.payment_failed':
+            // Handle payment failure event
+            console.log('Payment intent failed:', event.data.object);
+            break;
+        // Add more cases for other event types as needed
+        default:
+            console.log(`Unhandled event type: ${event.type}`);
     }
     // Return a response to acknowledge receipt of the event
-    response.json({ received: true });
+    return new Response({ received: true }, {
+        status: 200,
+    })
     
     } else {
         // Return a 405 Method Not Allowed error for non-POST requests
         response.setHeader('Allow', 'POST');
-        response.status(405).end('Method Not Allowed');
+
+        return new Response('Method Not Allowed', {
+            status: 405,
+        })
     }
 };
 
