@@ -8,13 +8,13 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAdbN272x0dFCrGlr6ofms28fSjhqlgl8Q",
-  authDomain: "rx-radar.firebaseapp.com",
-  projectId: "rx-radar",
-  storageBucket: "rx-radar.appspot.com",
-  messagingSenderId: "803800088421",
-  appId: "1:803800088421:web:38ea1c356d422bf1722b8c",
-  measurementId: "G-E1SCK3RLTP"
+  apiKey: "AIzaSyDxwmfjF7IGF4z5vxUH1quzK7W9lYjJTzE",
+  authDomain: "rxradar.firebaseapp.com",
+  projectId: "rxradar",
+  storageBucket: "rxradar.appspot.com",
+  messagingSenderId: "290779208390",
+  appId: "1:290779208390:web:f0898a529b6b22dda0d5c7",
+  measurementId: "G-ZFCZQJ37KK"
 };
 
 // Initialize Firebase
