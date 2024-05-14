@@ -17,6 +17,7 @@ export async function POST(request) {
 
     // Get the signature sent by Stripe
     const signature = request.headers['stripe-signature'];
+    console.log('signatureeee, ', signature);
     try {
         event = stripe.webhooks.constructEvent(request.body, signature, endpointSecret);
     } catch (err) {
