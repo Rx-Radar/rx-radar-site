@@ -58,7 +58,7 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
     const newPrescriptionSearch: PrescriptionSearch = {
         phoneNumber: prescriptionSearch.phoneNumber,
         // location: prescriptionSearch.location,
-        location: { lat: 0.00, lon: 0.00 }, // delete after testing
+        location: { lat: 0.001, lon: 0.001 }, // delete after testing
         prescription: updatedPrescription!
     }
 
