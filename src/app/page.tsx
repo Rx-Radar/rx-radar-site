@@ -91,7 +91,7 @@ export default function Index() {
 
   // calls init-search-bland endpoint to initiate prescription search
   async function makeInitSearchPost(userSessionToken: string) {
-    const url = "https://us-central1-rxradar.cloudfunctions.net/dev-process-search-request"; // calls process-search-request
+    const url = "https://us-central1-rxradar.cloudfunctions.net/prod-process-search-request"; // calls process-search-request
 
     if (!prescriptionSearch) {
       showPopup('error', 'woah, somethings not working. Try again');
