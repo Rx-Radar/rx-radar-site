@@ -12,7 +12,7 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 
 
 export async function POST(request) {
-    print('request this bobby, ', request.body)
+    console.log('request this bobby, ', request.body);
     let event = request.body;
 
     // Get the signature sent by Stripe
