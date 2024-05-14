@@ -120,12 +120,11 @@ export default function Index() {
 
       // deconstruct return properties
       const { status, data } = response;
-      const { searchStatus, searchRequestUuid, message } = data; 
-      console.log('stuffffffs', searchStatus, searchRequestUuid, message)
+      const { searchStatus, message = "no error found" } = data; 
+      console.log(searchStatus, message)
 
       if (status !== 200) {
-        // Handle other error cases
-        console.error('Error:', message);
+        console.log('process search request failed')
         showPopup('error', 'hmm. we couldn\'t place your search. Try again');
       }
 
@@ -136,7 +135,7 @@ export default function Index() {
       } else if (searchStatus == 'not_paid') {
         // Handle payment required case
         console.log('Payment required:', message);
-        window.location.href = `https://buy.stripe.com/test_4gw1505B58XFdAk5kl?client_reference_id=${searchRequestUuid}`;
+        window.location.href = `https://buy.stripe.com/test_4gw1505B58XFdAk5kl?client_reference_id=${message}`;
       }  
 
     } catch (error) {
