@@ -1,6 +1,5 @@
 // stripe webhook handler
 import Stripe from 'stripe';
-import { db } from '../firebase-config';
 
 // move this from here
 STRIPE_SECRET_KEY = 'sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y'
