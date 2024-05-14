@@ -62,5 +62,3 @@ export async function POST(request) {
         })
     }
 };
-
-export default stripeWebhookHandler;
