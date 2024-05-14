@@ -1,21 +1,14 @@
 // stripe webhook handler
 import Stripe from 'stripe';
 
-// move this from here
-STRIPE_SECRET_KEY = 'sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y'
+// // move this from here
+// STRIPE_SECRET_KEY = 'sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y'
 
-
-const stripe = new Stripe(STRIPE_SECRET_KEY, {
+const stripe = new Stripe('sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y', {
   // Set the API version to use with Stripe
   apiVersion: '2024-04-10',
 });
 
-// Stripe requires the raw body to construct the event
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
 
 export async function POST(request) {
     console.log('checking this thing', request)
