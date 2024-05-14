@@ -166,7 +166,7 @@ async function sendFailureSMS(searchRequestUuid, msg) {
 // returns user uuid
 async function getUserUuid(searchRequestUuid) {
     try {
-        const pendingSearchDocRef = db.collection('pending_search_requests').doc(searchRequestUuid);
+        const pendingSearchDocRef = db.collection('search_requests').doc(searchRequestUuid);
         const userUuid = (await pendingSearchDocRef.get()).data().user_uuid;
         return userUuid
     } catch (error) {

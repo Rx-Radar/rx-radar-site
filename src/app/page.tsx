@@ -41,10 +41,20 @@ export default function Index() {
   type SearchState = "START" | "VERIFICATION_SENT" | "SEARCH_STARTED";
   const [searchState, setSearchState] = useState<SearchState>("START");
 
-  // on page load setup
+  const [searchRequestSent, setSearchRequestSent] = useState<boolean>(false);
+
+  // on page load setup recaptcha
   useEffect(() => {
     setupRecaptcha();
   }, []);
+
+  // push search success 
+  useEffect(() => {
+    if (searchRequestSent) {
+      navigation.push('/search-success')
+    }
+
+  }, [searchRequestSent]);
 
   // triggers medication search on search form completion
   const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
@@ -110,12 +120,12 @@ export default function Index() {
 
       // deconstruct return properties
       const { status, data } = response;
-      const { message, searchRequestUuid } = data;
+      const { message, searchRequestUuid } = data; 
 
       if (status === 200) {
         // Handle search placed case
         console.log('Search results:', message);
-        setSearchState('SEARCH_STARTED');
+        setSearchRequestSent(true);
       } else if (status === 402) {
         // Handle payment required case
         console.log('Payment required:', message);
@@ -196,29 +206,6 @@ export default function Index() {
     );
   };
 
-  // displays search sent page
-  const SearchSentContent = () => {
-    return (
-      <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "#FBCEB1",
-        color: "black",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-      >
-        <div className={styles.hero_text_container}>
-          <p style={{ color: "black" }}>Searching for meds!</p>
-          <p style={{ color: "#F94D00" }}>We'll text you soon</p>
-        </div>
-      </div>
-    );
-  };
-
   // loading screen
   const Loader = () => {
     return (
@@ -293,7 +280,6 @@ export default function Index() {
 
       {searchState == "START" && <HeroContent />}
       {searchState == "VERIFICATION_SENT" && <VerificationContent />}
-      {searchState == "SEARCH_STARTED" && <SearchSentContent />}
 
       <div id="recaptcha"/>
       <ToastContainer />
