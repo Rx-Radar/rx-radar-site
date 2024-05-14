@@ -50,8 +50,6 @@ export default function Index() {
   const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
     setLoading(true);
 
-    window.location.href = 'https://buy.stripe.com/test_14k5lg5B56Px1RC4gg';
-
     // validate prescription search
     const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
     if (!success) {
@@ -76,7 +74,6 @@ export default function Index() {
   const verifyCodeEntered = (code: string) => {
     signUserIn(code)
       .then((userSessionToken) => {
-        setSearchState("SEARCH_STARTED");
         makeInitSearchPost(userSessionToken);
       })
       .catch((error) => console.log(error));
@@ -110,7 +107,25 @@ export default function Index() {
           "Content-Type": "application/json",
         },
       });
-      return response.data;
+
+      // deconstruct return properties
+      const { status, data } = response;
+      const { message, searchRequestUuid } = data;
+
+      if (status === 200) {
+        // Handle search placed case
+        console.log('Search results:', message);
+        setSearchState('SEARCH_STARTED');
+      } else if (status === 402) {
+        // Handle payment required case
+        console.log('Payment required:', message);
+        window.location.href = `https://buy.stripe.com/test_4gw1505B58XFdAk5kl?client_reference_id=${searchRequestUuid}`;
+      } else {
+        // Handle other error cases
+        console.error('Error:', message);
+        showPopup('error', 'hmm. we couldn\'t place your search. Try again');
+      }
+
     } catch (error) {
       console.error("Error:", error);
       showPopup('error', 'woah, somethings not working. Try again');
