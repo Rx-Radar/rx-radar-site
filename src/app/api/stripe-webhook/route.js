@@ -1,7 +1,7 @@
 // stripe webhook handler
 
 import Stripe from 'stripe';
-import { db } from '../firebase-config';
+// import { db } from '../firebase-config';
 
 // move this from here
 STRIPE_SECRET_KEY = 'sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y'
@@ -18,7 +18,8 @@ export const config = {
   },
 };
 
-const stripeWebhookHandler = async (request, response) => {
+export async function GET(request, response) {
+    
   console.log('checking this thing', request)
   if (request.method === 'POST') {
 
@@ -63,4 +64,3 @@ const stripeWebhookHandler = async (request, response) => {
 };
 
 export default stripeWebhookHandler;
-
