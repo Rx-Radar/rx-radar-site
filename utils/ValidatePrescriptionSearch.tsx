@@ -7,7 +7,6 @@ import { getDistance } from "geolib"
 
 // return true if search within pharmacy hours
 export const isValidSearchTime = (): boolean => {
-    return true;  // remove
     const now = new Date();
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
@@ -58,11 +57,10 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
     // create a new formatted prescription
     const newPrescriptionSearch: PrescriptionSearch = {
         phoneNumber: prescriptionSearch.phoneNumber,
-        // location: prescriptionSearch.location,
-        location: { lat: 0.001, lon: 0.001 }, // delete after testing
+        location: prescriptionSearch.location,
         prescription: updatedPrescription!
     }
-
+    
     return { success: true, error: undefined, newPrescriptionSearch: newPrescriptionSearch} // on data valid return new prescription
 }
 

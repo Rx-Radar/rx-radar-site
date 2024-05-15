@@ -135,7 +135,7 @@ export default function Index() {
       } else if (searchStatus == 'not_paid') {
         // Handle payment required case
         console.log('Payment required:', message);
-        window.location.href = `https://buy.stripe.com/test_4gw1505B58XFdAk5kl?client_reference_id=${message}`;
+        window.location.href = `https://buy.stripe.com/4gw28v7Ja59ydnW9AA?client_reference_id=${message}`;
       }  
 
     } catch (error) {
