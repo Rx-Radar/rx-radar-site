@@ -51,7 +51,7 @@ export const validatePrescriptionSearch = (prescriptionSearch: PrescriptionSearc
 
     // validate search hours
     if (!isValidSearchTime()) {
-        return { success: false, error: 'Try searching during pharmacy hours', newPrescriptionSearch: undefined }
+        return { success: false, error: 'Try searching during pharmacy open hours : 8:05am-1:15pm 2:05-8:55pm', newPrescriptionSearch: undefined }
     }
 
     // create a new formatted prescription
