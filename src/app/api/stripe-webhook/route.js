@@ -33,7 +33,7 @@ const twilioClient = new Twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 // move this from here
 const STRIPE_SECRET_KEY = 'sk_test_51LAi2vDj2y9TDEKrIYAAmSAQb87yWT0El6kTYypvIoBQZjLNuBRaRf7y3Fu72yr1ql8Z5n93P2EziPcyCR5olsLe005KDjmk5Y'
-const endpointSecret = 'whsec_aec1773c7f7ad8be1d1dcc93c4abb7b02f69dbaee14f1cf3d832b2d0a3b42a42'
+const endpointSecret = 'whsec_pSd2kFFsHa9vNDiGRPYN1RdelGf8ARwr'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
     // Set the API version to use with Stripe
