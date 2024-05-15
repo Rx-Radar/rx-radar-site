@@ -7,6 +7,7 @@ import { getDistance } from "geolib"
 
 // return true if search within pharmacy hours
 export const isValidSearchTime = (): boolean => {
+    return true; 
     const now = new Date();
     const currentHour = now.getHours();
     const currentMinute = now.getMinutes();
