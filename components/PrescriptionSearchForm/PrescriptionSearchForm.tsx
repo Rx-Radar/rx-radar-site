@@ -101,7 +101,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
           <p style={{fontSize: 20, marginBottom: 10, marginTop: 10, color: '#F94D00', fontWeight: '600'}}>Begin a new search</p>
 
           {/* medication search input */}
-          <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)}/>
+          <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)} bottomSearchLink={new URL("https://forms.gle/YUuvJeVDiNb7Qdhr9")} bottomSearchText='Looking for a different medication?'/>
 
           {/* medication parameters */}
           <div className={styles.medication_options}>

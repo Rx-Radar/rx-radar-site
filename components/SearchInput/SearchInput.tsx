@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import styles from './SearchInput.module.css';
 import Fuse from 'fuse.js';
+import Link from 'next/link';
 
 // search input props
 interface SearchInputProps {
     placeholder: string; 
     searchList: string[]; // list of search results to display
     onChange: (value: string) => void; // function called on input option changed
+    bottomSearchLink?: URL; // displays on the bottom of the search results as a default text
+    bottomSearchText?: string; // text to display over the link in the bottom of the search
 }
 
 /**
@@ -14,7 +17,7 @@ interface SearchInputProps {
  * @param SearchInputProps 
  * @returns Searchable Input
  */
-export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder, onChange }) => {
+export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder, onChange, bottomSearchLink, bottomSearchText }) => {
     const [isFocused, setIsFocused] = useState<boolean>(false); // stores whether the user has focused the text input
     const [currentText, setCurrentText] = useState<string>(''); // stores the current text the user is typing
     const [filteredResults, setFilteredResults] = useState<string[]>(searchList); // filtered list
@@ -102,6 +105,13 @@ export const SearchInput:React.FC<SearchInputProps> = ({ searchList, placeholder
                             </div>
                         }
                     })}
+
+                    {/* optional bottom link */}
+                    { 
+                        bottomSearchLink && 
+                        bottomSearchText && 
+                        <Link className={styles.bottomLink} href={bottomSearchLink}>{bottomSearchText}</Link>
+                    }
                 </div>
             }
         </div>

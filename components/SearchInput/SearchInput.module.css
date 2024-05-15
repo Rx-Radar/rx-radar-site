@@ -14,6 +14,15 @@
     caret-color: black;
 }
 
+.bottomLink {
+    color: #F94D00;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px;
+    align-items: center;
+    display: flex; 
+}
+
 .searchInput::placeholder {
     color: #F94D00; /* Placeholder text color */
 }
