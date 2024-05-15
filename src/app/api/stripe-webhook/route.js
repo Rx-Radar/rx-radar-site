@@ -105,7 +105,7 @@ async function onPaymentSuccess(searchRequestUuid) {
         const userUuid = await getUserUuid(searchRequestUuid);
 
         // increment user_credits in user doc by 1
-        const userDocRef = db.collection('users').doc(userUuid);
+        const userDocRef = db.collection('prod_users').doc(userUuid);
         await userDocRef.update({
             search_credits: admin.firestore.FieldValue.increment(1)
         });
@@ -120,7 +120,7 @@ async function onPaymentSuccess(searchRequestUuid) {
 async function moveDocumentToSearchRequests(searchRequestUuid) {
     try {
         // Reference to the document in pending_search_requests
-        const pendingDocRef = db.collection('pending_search_requests').doc(searchRequestUuid);
+        const pendingDocRef = db.collection('prod_pending_search_requests').doc(searchRequestUuid);
 
         // Get the document data
         const docSnapshot = await pendingDocRef.get();
@@ -128,7 +128,7 @@ async function moveDocumentToSearchRequests(searchRequestUuid) {
             const data = docSnapshot.data();
 
             // Create a new document in search_requests
-            const searchRequestsRef = db.collection('search_requests').doc(searchRequestUuid);
+            const searchRequestsRef = db.collection('prod_search_requests').doc(searchRequestUuid);
             await searchRequestsRef.set(data);
 
             // Delete the document from pending_search_requests
@@ -163,7 +163,7 @@ async function sendFailureSMS(searchRequestUuid, msg) {
 // returns user uuid
 async function getUserUuid(searchRequestUuid) {
     try {
-        const pendingSearchDocRef = db.collection('search_requests').doc(searchRequestUuid);
+        const pendingSearchDocRef = db.collection('prod_search_requests').doc(searchRequestUuid);
         const userUuid = (await pendingSearchDocRef.get()).data().user_uuid;
         return userUuid
     } catch (error) {
