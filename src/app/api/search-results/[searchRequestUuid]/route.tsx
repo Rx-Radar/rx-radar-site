@@ -18,7 +18,7 @@ export async function GET(request: Request, { params }: { params: { searchReques
 async function fetchSearchResults(searchRequestUuid: string) {
     try {
         // get search request doc
-        const searchRequestDocRef = doc(collection(db, 'search_requests'), searchRequestUuid);
+        const searchRequestDocRef = doc(collection(db, 'prod_search_requests'), searchRequestUuid);
         const searchRequestDocSnapshot = await getDoc(searchRequestDocRef);
 
         if (!searchRequestDocSnapshot.exists()) return null; // catch non-existent doc
@@ -34,7 +34,7 @@ async function fetchSearchResults(searchRequestUuid: string) {
         // get each calls doc data
         let callsList = [];
         for (const call_uuid of calls) {
-            const callDocRef = doc(collection(db, 'calls'), call_uuid);
+            const callDocRef = doc(collection(db, 'prod_calls'), call_uuid);
             const callDocSnapshot = await getDoc(callDocRef);
 
             if (!callDocSnapshot.exists()) return null; // catch non-existent doc
@@ -67,7 +67,7 @@ async function fetchSearchResults(searchRequestUuid: string) {
  * @param pharmacyUuid 
  */
 async function fetchPharmacy(pharmacyUuid: string) {
-    const pharmacyDocRef = doc(collection(db, 'pharmacies'), pharmacyUuid);
+    const pharmacyDocRef = doc(collection(db, 'prod_pharmacies'), pharmacyUuid);
     const pharmacyDocSnapshot = await getDoc(pharmacyDocRef);
 
     if (!pharmacyDocSnapshot.exists()) return null; // catch non-existent doc
