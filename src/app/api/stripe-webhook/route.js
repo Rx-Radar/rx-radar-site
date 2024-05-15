@@ -146,7 +146,7 @@ async function moveDocumentToSearchRequests(searchRequestUuid) {
 // send twilio sms on search request failure
 async function sendFailureSMS(searchRequestUuid, msg) {
     const userUuid = await getUserUuid(searchRequestUuid)
-    const userPhoneNumber = (await db.collection('users').doc(userUuid).get()).data().phone
+    const userPhoneNumber = (await db.collection('prod_users').doc(userUuid).get()).data().phone
 
     try {
         // Send SMS using Twilio
