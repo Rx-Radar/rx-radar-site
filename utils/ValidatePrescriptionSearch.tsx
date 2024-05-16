@@ -127,22 +127,8 @@ function validateAndFormatPrescription(prescription: Prescription): { success: b
 // Function to check if a location is within 10 miles of valid locations
 function validateLocation(userLocation: SearchLocation | undefined): boolean {
 
-    if(!userLocation) return false; // catch empty location
-
-    const boston = { latitude: 42.3601, longitude: -71.0589 }; // Boston, MA
-    const troy = { latitude: 42.7284, longitude: -73.6918 }; // Troy, NY
-    const validLocations = [boston, troy];
-
-    const MIN_DISTANCE_REQUIRED = 24140; // 15 miles 
-
-    for (const location of validLocations) {
-      // check if current location is valid
-      const formattedLocation = { latitude: userLocation.lat, longitude: userLocation.lon };
-      const distance = getDistance(formattedLocation, location, 1);
-      console.log('distance working: ', distance)
-      if (distance <= MIN_DISTANCE_REQUIRED) return true;
-    }
-    return false;
+    if (!userLocation) return false; // catch empty location
+    return true;
   }
 
 // validate phone number
