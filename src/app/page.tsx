@@ -231,6 +231,7 @@ export default function Index() {
   const FooterBar = () => {
     return (
       <div className={styles.footer}>
+        <text>have any questions or problems with your search? </text>
         <u>
           <a href={`mailto:${email}`}>{email}</a>
         </u>
