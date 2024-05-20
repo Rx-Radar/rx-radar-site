@@ -24,10 +24,10 @@ export default async function Page({ params }: PageProps) {
 
 
   // Fetch data from the API using the `searchRequestUuid`
-  const res = await fetch(`http://localhost:3000/api/search-results/${searchRequestUuid}`, { cache: 'no-store' }); // <------------ USE FOR LOCAL TESTING
+  // const res = await fetch(`http://localhost:3000/api/search-results/${searchRequestUuid}`, { cache: 'no-store' }); // <------------ USE FOR LOCAL TESTING
   
 
-  // const res = await fetch(`http://rx-radar.com/api/search-results/${searchRequestUuid}`, { cache: 'no-store' });
+  const res = await fetch(`http://rx-radar.com/api/search-results/${searchRequestUuid}`, { cache: 'no-store' });
   const data = await res.json();
 
   if (!data) return notFound(); // return 404 if invalid searchRequestUuid 
