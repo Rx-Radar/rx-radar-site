@@ -20,7 +20,7 @@
     font-size: 13px;
     padding: 10px;
     align-items: center;
-    display: flex; 
+    display: flex;
 }
 
 .searchInput::placeholder {

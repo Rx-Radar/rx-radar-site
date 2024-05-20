@@ -27,6 +27,8 @@ async function fetchSearchResults(searchRequestUuid: string) {
         
         // get prescription and call details
         const prescription = searchRequest.prescription; 
+        const userLat = 41.1415 //parseFloat(searchRequest.user_location.lat);
+        const userLon = -73.3579 //parseFloat(searchRequest.user_location.lon);
         const calls = searchRequest.calls; 
         const searchTimestamp = formatEpochToDate(searchRequest.epoch_initiated);
 
@@ -54,7 +56,7 @@ async function fetchSearchResults(searchRequestUuid: string) {
             callsList.push(new_call)
 
         }
-        return {prescription: prescription, calls: callsList, timestamp: searchTimestamp};
+        return { prescription: prescription, calls: callsList, timestamp: searchTimestamp, userLat: userLat, userLon: userLon };
 
     } catch (error) {
         console.error('Error fetching search request:', error);
@@ -75,7 +77,10 @@ async function fetchPharmacy(pharmacyUuid: string) {
     return {
         name: pharmacy.name,
         address: pharmacy.address,
-        phone: pharmacy.phone
+        phone: pharmacy.phone,
+        lon: pharmacy.location.lon,
+        lat: pharmacy.location.lat,
+        pharmCode: pharmacy.pharm_code,
     }
 }
 

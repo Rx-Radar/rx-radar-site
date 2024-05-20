@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { OptionInput } from '../OptionInput/OptionInput';
 import { PhoneInput } from 'react-international-phone';
-import { Tooltip } from 'react-tooltip'
 import { useState } from 'react';
 import { toast, Bounce } from "react-toastify";
 
@@ -133,7 +132,6 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
 
           {/* location search (hard coded to Troy, NY) */}
           <div style={{width: '100%'}}>
-            <a data-tooltip-id="my-tooltip" data-tooltip-place="left" style={{zIndex: 1000}} data-tooltip-content="Search any address in Boston, MA or Troy, NY">
               <AutoComplete
               placeholder="Your Address"
               apiKey={'AIzaSyDxwmfjF7IGF4z5vxUH1quzK7W9lYjJTzE'}
@@ -145,9 +143,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
               style={{width: '100%', height: 50}}
               className={styles.searchInput}
               />
-            </a>
           </div>
-          <Tooltip id="my-tooltip" />
 
 
           {/* search send button */}
