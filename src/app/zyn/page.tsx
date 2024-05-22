@@ -9,7 +9,7 @@ export default async function ZynRadar() {
   return <div className="absolute top-0 left-0 right-0 bottom-0">
 
       {/* header bar */}
-      <div className="w-full, p-2 bg-[#f9f4f4] flex flex-row justify-between">
+      <div className="w-full, p-2 bg-[#f9f4f4] flex flex-column md:flex-row justify-between">
         <img
         style={{width: 254, height: 53}}
         src="/zynlogo.png"
