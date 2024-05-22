@@ -5,8 +5,8 @@ import { GoogleMap, useJsApiLoader, OverlayViewF, OverlayView, Marker, InfoWindo
 import Link from 'next/link';
 
 export default async function zynRadar() {
-    const res = await fetch(`http://localhost:3000/api/zyn-get-store`, { cache: 'no-store' }); // dev
-    //const res = await fetch(`http://rx-radar.com/api/zyn-get-store`, { cache: 'no-store' }); // production
+    // const res = await fetch(`http://localhost:3000/api/zyn-get-store`, { cache: 'no-store' }); // dev
+    const res = await fetch(`http://rx-radar.com/api/zyn-get-store`, { cache: 'no-store' }); // production
     const data = await res.json();
 
     return <div className="absolute top-0 left-0 right-0 bottom-0">
