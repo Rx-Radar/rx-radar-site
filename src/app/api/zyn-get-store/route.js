@@ -18,8 +18,9 @@ async function fetchSearchResults() {
         const snapshot = await getDocs(collectionRef);
 
         if (snapshot.empty) {
-            console.log('No matching documents.');
-            return { stores: [] };
+            return new Response({ stores: [] }, {
+                status: 200,
+            })
         }
 
         const stores = snapshot.docs.map(doc => {
@@ -34,10 +35,14 @@ async function fetchSearchResults() {
             }
         });
 
-        return { stores: stores };
+        return new Response({ stores: stores }, {
+            status: 200,
+        })
 
     } catch (error) {
         console.error('Error fetching search request:', error);
-        return null;
+        return new Response({ stores: null }, {
+            status: 500,
+        })
     }
 }
