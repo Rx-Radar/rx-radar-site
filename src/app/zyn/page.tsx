@@ -6,7 +6,7 @@ export default async function ZynRadar() {
   const res = await fetch(`http://rx-radar.com/api/zyn-get-store`, { cache: 'no-store' }); // production
   const data = await res.json();
 
-  return <div className="absolute top-0 left-0 right-0 bottom-0">
+  return <div className="flex flex-col h-screen">
 
       {/* header bar */}
       <div className="w-full, p-2 bg-[#f9f4f4] flex flex-column md:flex-row justify-between">
