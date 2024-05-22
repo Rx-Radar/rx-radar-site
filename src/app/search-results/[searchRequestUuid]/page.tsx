@@ -102,7 +102,6 @@ export default async function Page({ params }: PageProps) {
         </div>
 
         {/* left side */}
-        {/* <div className="md:w-2/3 bg-purple-500 p-4 text-white md:h-[calc(100vh-4rem)] h-96 overflow-hidden">Box 5</div> */}
         <Map userLocation={{lat: data.userLat, lng: data.userLon}} pharmacies={data.calls}/>
       </div>
     </div>
