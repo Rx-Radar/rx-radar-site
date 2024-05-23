@@ -7,23 +7,22 @@ export default async function ZynRadar() {
   const data = await res.json();
 
   return <div className="flex flex-col h-screen">
+    <Link href="/" className=" w-full py-1 bg-[#F94D00] text-white text-sm font-semibol flex justify-center">
+      Can't find your ADHD meds? Click here
+    </Link>
 
-      {/* header bar */}
-      <div className="w-full, p-2 bg-[#f9f4f4] flex flex-wrap justify-between">
-        <img
-        style={{width: 254, height: 53}}
-        src="/zynlogo.png"
-        alt="Zyn Radar"
-        className="object-cover w-full h-full filter"
-        /> 
+    {/* header bar */}
+    <div className="w-full, p-2 bg-[#f9f4f4] flex flex-wrap justify-between items-center">
+      <img
+      style={{width: 150, height: 31}}
+      src="/zynlogo.png"
+      alt="Zyn Radar"
+      className="object-cover w-full h-full filter"
+      /> 
+    </div>
 
-        <Link href="/" className="px-6 py-3 bg-transparent border border-[#F94D00] rounded-full text-[#F94D00] font-semibold hover:bg-black hover:border-black hover:text-white transition duration-300 mx-auto sm:mx-0">
-        Cant find your ADHD meds?
-        </Link>
-      </div>
-
-      {/* map */}
-      <ZynMapComponent stores={data.stores}/>
+    {/* map */}
+    <ZynMapComponent stores={data.stores}/>
   </div>
 };
 
