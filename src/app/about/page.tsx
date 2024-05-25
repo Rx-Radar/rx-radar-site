@@ -13,36 +13,37 @@ export default function PricingPage() {
             <div className="flex flex-col md:flex-row items-center mt-3 max-w-5xl mx-auto">
 
                 <div className="bg-white flex m-5 mt-9 flex-col justify-start text-left p-5">
-                    <p className="text-2xl font-bold">Simon</p>
+                    <img
+                    style={{width: 80, height: 80}}
+                    src="/simonheadshot.png"
+                    alt="Boston Map"
+                    className="object-cover w-full h-full filter"
+                    />
+                    <p className="text-2xl font-bold pt-4">Simon</p>
                     <p className="text-xl">co-founder</p>
 
                     <p className="mt-3">
-                        Access to a single search for a prescription of pharmacies in your area. 
-                        Our proprietary service will select optimal pharmacies, call and speak with pharmacists, 
-                        and send you a link with a detailed overview of each call.
-                        You will also be able to review search results on a dynamic map.
-                    </p>
-
-                    <p className="mt-3 text-[#a1a0a0]">
-                        *Note rxradar does not at this time guarantee that a prescription search will result in the successfully locating of a pharmacy that can fill your prescription.
-                        Accuracy of rxradar's service may vary.
+                        Simon's expirience trying to fill his in-shortage prescriptions first hand was the driving inspiration
+                        for what's become rxradar today. He knew there must be a better alternative to the monthly laborous task of calling 
+                        tens of pharmacies looking to access his medications. Orignally from CT, Simon has worked in both NYC and CA and enjoys
+                        working to solve real problems he's passionate about in his free time. 
                     </p>
                 </div>
 
                 <div className="bg-white flex m-5 mt-9 flex-col justify-start text-left p-5">
-                    <p className="text-2xl font-bold">Owen</p>
+                    <img
+                    style={{width: 80, height: 80}}
+                    src="/owenheadshot.png"
+                    alt="Boston Map"
+                    className="object-cover w-full h-full filter"
+                    />
+                    <p className="text-2xl font-bold pt-4">Owen</p>
                     <p className="text-xl">co-founder</p>
 
                     <p className="mt-3">
-                        Access to a single search for a prescription of pharmacies in your area. 
-                        Our proprietary service will select optimal pharmacies, call and speak with pharmacists, 
-                        and send you a link with a detailed overview of each call.
-                        You will also be able to review search results on a dynamic map.
-                    </p>
-
-                    <p className="mt-3 text-[#a1a0a0]">
-                        *Note rxradar does not at this time guarantee that a prescription search will result in the successfully locating of a pharmacy that can fill your prescription.
-                        Accuracy of rxradar's service may vary.
+                        Owen's love for making software that helps people is what brought Owen and Simon together 
+                        7 years ago to work on a school project. Owen realized the profound impact of what
+                        rxradar could become and got right to work. Owen enjoys music, sailing, and running in his free time.
                     </p>
                 </div>
             </div>
