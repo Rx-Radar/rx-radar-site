@@ -46,7 +46,8 @@ export const Map: React.FC<MapProps> = ({ userLocation, pharmacies }) => {
     // Adjust the base size and scaling factor as needed
     const baseSize = 5; // base size in rem
     const minSize = 4.3; // minimum size in rem
-    const maxSize = 6.5; // maximum size in rem
+    const maxSize = 4; // maximum size in rem
+    const furthestZoomLevel = 10;
 
     // Inverse the scale factor to make the overlay smaller when zooming in
     // and larger when zooming out
@@ -56,7 +57,7 @@ export const Map: React.FC<MapProps> = ({ userLocation, pharmacies }) => {
     const size = baseSize * scaleFactor;
 
     let displaySize = baseSize;
-    if (size > maxSize) {
+    if (size > furthestZoomLevel) {
       displaySize = 0;
     } else {
       // Clamp the size between the minimum and maximum values

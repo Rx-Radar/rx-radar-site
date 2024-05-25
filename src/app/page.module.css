@@ -8,17 +8,6 @@
     gap: 50px;
     padding: 20px;
 }
-.footer {
-    font-size: 13px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    color: #F94E02;
-    background-color: #FBCEB1; /* Light grey background */
-    text-align: center;
-    padding: 5px 0;
-    border-top: 1px solid #F94E02;
-  }
 
 .hero_text_container {
     padding: 10;
@@ -26,12 +15,6 @@
     max-width: 40vw;
     font-size: 42px;
     font-weight: 700;
-}
-
-.enter_verification_code_text {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 100px;
 }
 
 /* Define a media query for screen widths below 768px */
@@ -49,20 +32,9 @@
         text-align: center;
     }
 
-    .input_verification {
-        --ReactInputVerificationCode-itemWidth: 2.5rem;
-        --ReactInputVerificationCode-itemHeight: 3.5rem;
-    }
-
     .input_verification .ReactInputVerificationCode__item {
         position: relative;
         color: #eb2121;
         font-weight: 500;
-    }
-
-    .enter_verification_code_text {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 100px;
     }
 }

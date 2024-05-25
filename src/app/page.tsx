@@ -1,7 +1,6 @@
 // index page
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
@@ -9,39 +8,37 @@ import axios from "axios";
 
 // npm inports
 import "react-international-phone/style.css";
-import ReactInputVerificationCode from "react-input-verification-code";
-import { ToastContainer, toast, Bounce } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // local inports
 import { NavigationBar } from "../../components/NavigationBar/NavigationBar";
-import QuantumLoader from "../../components/LoaderAnimations/QuantumLoader/QuantumLoader";
-import RxRadarLogoBeacon from "./images/RxRadarLogoBeacon";
-import {
-  setupRecaptcha,
-  sendSMSVerification,
-  signUserIn,
-} from "../../utils/AuthVerifier";
+import { setupRecaptcha, sendSMSVerification } from "../../utils/AuthVerifier";
 import { PrescriptionSearchForm } from "../../components/PrescriptionSearchForm/PrescriptionSearchForm";
-import {
-  validatePrescriptionSearch,
-  isValidSearchTime,
-} from "../../utils/ValidatePrescriptionSearch";
+import { validatePrescriptionSearch } from "../../utils/ValidatePrescriptionSearch";
+import PhoneVerificationModal from "../../components/PhoneVerificationModal/PhoneVerificationModal";
+import { showToast } from "../../utils/DisplayToast";
+import FallingPillsBackground from "../../components/FallingPillsBackground/FallingPillsBackground";
+import Footer from "../../components/Footer/Footer";
 
 // import types
 import { PrescriptionSearch } from "../../types/PrescriptionSearch";
+import QuantumLoader from "../../components/LoaderAnimations/QuantumLoader/QuantumLoader";
+import { LoadingScreen } from "../../components/LoadingScreen/LoadingScreen";
+
 
 export default function Index() {
   const navigation = useRouter(); // navigation router
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [prescriptionSearch, setPrescriptionSearch] = useState<PrescriptionSearch>();
-
-  // user search process state
-  type SearchState = "START" | "VERIFICATION_SENT" | "SEARCH_STARTED";
-  const [searchState, setSearchState] = useState<SearchState>("START");
-
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [searchRequestSent, setSearchRequestSent] = useState<boolean>(false);
+  const searchFormSectionRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleClick = () => {
+    searchFormSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   // on page load setup recaptcha
   useEffect(() => {
@@ -53,40 +50,31 @@ export default function Index() {
     if (searchRequestSent) {
       navigation.push('/search-success')
     }
-
   }, [searchRequestSent]);
 
   // triggers medication search on search form completion
   const initializeMedicationSearch = (prescriptionSearch: PrescriptionSearch) => {
-    setLoading(true);
 
     // validate prescription search
     const { success, error, newPrescriptionSearch } = validatePrescriptionSearch(prescriptionSearch);
     if (!success) {
-      showPopup('error', error);
+      showToast('error', error);
       return;
     }
+
+    setLoading(true); // set loading state to be true
 
     // set prescriptionSearch
     setPrescriptionSearch(newPrescriptionSearch);
 
     sendSMSVerification(prescriptionSearch.phoneNumber)
       .then((successMessage) => {
-        setSearchState("VERIFICATION_SENT");
         setLoading(false);
+        setShowVerificationModal(true);
       })
       .catch((error) =>
         console.error("Error sending SMS verification:", error)
       );
-  };
-
-  // verifies sms auth on user enter code completion
-  const verifyCodeEntered = (code: string) => {
-    signUserIn(code)
-      .then((userSessionToken) => {
-        makeInitSearchPost(userSessionToken);
-      })
-      .catch((error) => console.log(error));
   };
 
   // calls init-search-bland endpoint to initiate prescription search
@@ -94,7 +82,7 @@ export default function Index() {
     const url = "https://us-central1-rxradar.cloudfunctions.net/prod-process-search-request"; // calls process-search-request
 
     if (!prescriptionSearch) {
-      showPopup('error', 'woah, somethings not working. Try again');
+      showToast('error', 'woah, somethings not working. Try again');
       return;
     }
 
@@ -125,7 +113,7 @@ export default function Index() {
 
       if (status !== 200) {
         console.log('process search request failed')
-        showPopup('error', 'hmm. we couldn\'t place your search. Try again');
+        showToast('error', 'hmm. we couldn\'t place your search. Try again');
       }
 
       if (searchStatus == 'completed') {
@@ -140,29 +128,49 @@ export default function Index() {
 
     } catch (error) {
       console.error("Error:", error);
-      showPopup('error', 'woah, somethings not working. Try again');
+      showToast('error', 'woah, somethings not working. Try again');
     }
   }
 
   // main hero content with medication search form
   const HeroContent = () => {
     return (
-      <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        overflowY: "auto",
-        flexDirection: "column",
-      }}
-      >
-        {/* main row contents */}
-        <div className={styles.hero_content}>
+      <div ref={searchFormSectionRef} className="bg-[#eeeeee]">
+        <div className="w-full min-h-screen flex flex-col md:flex-row justify-center items-center md:space-x-14 space-y-14 md:space-y-0 p-5">
+
           {/* left box (content) */}
-          <div className={styles.hero_text_container}>
-            <p style={{ color: "#FB4E00" }}>Meds in shortage?</p>
-            <p>We find a nearby pharmacy that has them</p>
-            <p style={{ color: "#FB4E00" }}>Then we'll text you in ~10</p>
+          <div className="flex flex-col justify-center items-center p-2 space-y-5 w-full text-center md:text-left md:max-w-[45%]">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
+              <div className="text-4xl md:text-6xl">✍️</div>
+              <div className="flex flex-col items-center md:flex-row md:items-center md:space-x-2">
+                <span className="text-2xl md:text-4xl font-bold">Enter your medication details.</span>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
+              <div className="text-4xl md:text-6xl">🔎</div>
+              <div className="flex flex-col items-center md:flex-row md:items-center md:space-x-2">
+                <span className="text-2xl md:text-4xl font-bold">We search your local area for pharmacies.</span>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
+              <div className="text-4xl md:text-6xl">📞</div>
+              <div className="flex flex-col items-center md:flex-row md:items-center md:space-x-2">
+                <span className="text-2xl md:text-4xl font-bold">We place calls using our AI assistant.</span>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
+              <div className="text-4xl md:text-6xl">🗺️</div>
+              <div className="flex flex-col items-center md:flex-row md:items-center md:space-x-2">
+                <span className="text-2xl md:text-4xl font-bold">We text you a link to view your search results.</span>
+              </div>
+            </div>
           </div>
 
           {/* right box (input form)*/}
@@ -170,6 +178,7 @@ export default function Index() {
           loading={false}
           initializeMedicationSearch={initializeMedicationSearch}
           />
+
         </div>
 
         {/* ...rest of page content here */}
@@ -177,116 +186,44 @@ export default function Index() {
     );
   };
 
-  // verification code entry page
-  const VerificationContent = () => {
-    return (
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "white",
-          color: "black",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <p className={styles.enter_verification_code_text}>
-          Enter SMS verification code to continue
-        </p>
 
-        <div className={styles.input_verification}>
-          <ReactInputVerificationCode
-          length={6}
-          autoFocus={true}
-          placeholder=""
-          onCompleted={(code) => verifyCodeEntered(code)}
-          />
+  const Hero = () => {
+    return (
+      <div className="relative w-full overflow-hidden min-h-screen bg-[#eeeeee]">
+        <FallingPillsBackground />
+        <div className="relative top-40 md:top-60 left-auto transform-none flex flex-col items-center">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-black text-center">
+            Can't find ADHD meds?
+          </h1>
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-black text-center">
+            We 📞 pharmacies for you
+          </h2>
+
+          <button onClick={handleClick} className="mt-8 md:mt-20 px-6 py-3 bg-transparent border border-[#F94D00] rounded-full text-[#F94D00] font-semibold hover:bg-black hover:border-black hover:text-white transition duration-300 mx-auto">
+            Get Started
+          </button>
         </div>
       </div>
     );
   };
+  
 
-  // loading screen
-  const Loader = () => {
-    return (
-      <div
-        style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        }}
-      >
-        <QuantumLoader />
-        <p style={{ marginTop: 28 }}>Sending Phone Verification</p>
-      </div>
-    );
-  };
-
-  // add your contact information here
-  const email = "rxradarcontact@gmail.com"; // Set your email address here
-  // Footer component for displaying contact information
-  const FooterBar = () => {
-    return (
-      <div className={styles.footer}>
-        <text>have any questions or problems with your search? </text>
-        <u>
-          <a href={`mailto:${email}`}>{email}</a>
-        </u>
-      </div>
-    );
-  };
-
-  // handles showing popup messages
-  const showPopup = (type: string, msg: string | undefined) => {
-    if (type == 'error') {
-      toast.error(msg, {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        pauseOnHover: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-      return;
-    }
-
-    toast(msg, {
-      position: "bottom-center",
-      autoClose: 1000,
-      hideProgressBar: true,
-      pauseOnHover: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
-  }
 
   // return main page contents
   return (
-    <div
-    style={{
-      position: "relative",
-      width: "100vw",
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      color: "black",
-    }}
-    >
-      <NavigationBar />
+    <>
+      <div className="h-screen w-screen flex flex-col overflow-y-auto">
+        <NavigationBar />
+        <Hero/>
+        <HeroContent />
+        <Footer />
 
-      {searchState == "START" && <HeroContent />}
-      {searchState == "VERIFICATION_SENT" && <VerificationContent />}
+        <PhoneVerificationModal showModal={showVerificationModal} setShowModal={setShowVerificationModal} sendSearchRequest={makeInitSearchPost}/>
+      </div>
 
+      { loading && <LoadingScreen /> }
       <div id="recaptcha"/>
       <ToastContainer />
-      <FooterBar />
-    </div>
+    </>
   );
 }
