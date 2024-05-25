@@ -152,7 +152,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
           </div>
 
           <div style={{width: '100%', marginTop: 10, textAlign: 'center'}}>
-            <p className={styles.disclaimer}>By pressing "Find medication" you agree to our <Link style={{fontWeight: '700'}} href="/privacy-policy">Privacy Policy</Link> and consent to receiving SMS notifications from RxRadar</p>
+            <p className={styles.disclaimer}>By pressing "Find medication" you agree to our <Link style={{fontWeight: '700'}} href="/privacy">Privacy Policy</Link> and consent to receiving SMS notifications from RxRadar</p>
           </div>
             
         </div>

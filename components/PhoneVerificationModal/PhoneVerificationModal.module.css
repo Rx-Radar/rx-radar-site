@@ -1,0 +1,9 @@
+
+/* Define a media query for screen widths below 768px */
+@media (max-width: 768px) {
+    
+    .input_verification {
+        --ReactInputVerificationCode-itemWidth: 2.5rem;
+        --ReactInputVerificationCode-itemHeight: 3.5rem;
+    }
+}

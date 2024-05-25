@@ -5,7 +5,7 @@ import { db } from "@/app/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
 
-export async function GET(request) {
+export async function GET(request: Request) {
 
   // Fetch data from an external API or database based on the `searchRequestUuid`
   const searchResults = await fetchSearchResults();
