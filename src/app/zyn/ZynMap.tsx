@@ -39,9 +39,9 @@ export const ZynMapComponent: React.FC<MapComponentProps> = ({ stores }) => {
     }
 
 
-    return <div className="flex-1 overflow-hidden">
+    return <div className="flex-1 overflow-hidden relative">
         { isLoaded && <GoogleMap
-        mapContainerStyle={{ height: '100%', width: '100%' }}
+        mapContainerStyle={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0 }}
         center={mapCenter}
         zoom={5}
         onLoad={onMapLoad}
@@ -100,7 +100,7 @@ export const ZynMapComponent: React.FC<MapComponentProps> = ({ stores }) => {
 
             {/* display zyn store pins */}
             {stores.map((store, index) => 
-                { return (store.availability == "") ?
+                {return (store.availability == "") ?
                 <Marker
                 key={index}
                 position={{ lat: store.lat, lng: store.lon }}
