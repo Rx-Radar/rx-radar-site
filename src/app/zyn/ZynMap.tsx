@@ -166,5 +166,6 @@ const mapStyles = {
     mapTypeControl: false, // Removes the map/satellite toggle
     streetViewControl: false, // Removes the Street View pegman
     fullscreenControl: true, // Removes the fullscreen toggle
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    gestureHandling: 'greedy', // This allows single-finger drag on mobile
 };
