@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ZynMapComponent } from './ZynMap';
 
 export default async function ZynRadar() {
-  // const res = await fetch(`http://localhost:3000/api/zyn-get-store`, { cache: 'no-store' }); // dev
+  //const res = await fetch(`http://localhost:3000/api/zyn-get-store`, { cache: 'no-store' }); // dev
   const res = await fetch(`http://rx-radar.com/api/zyn-get-store`, { cache: 'no-store' }); // production
   const data = await res.json();
 

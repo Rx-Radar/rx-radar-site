@@ -33,6 +33,7 @@ async function fetchSearchResults() {
             }
         });
 
+        console.log('zyn map fetched search results');
         return { stores: stores }
 
     } catch (error) {
