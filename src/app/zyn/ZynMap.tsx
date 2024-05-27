@@ -100,11 +100,12 @@ export const ZynMapComponent: React.FC<MapComponentProps> = ({ stores }) => {
 
             {/* display zyn store pins */}
             {stores.map((store, index) => 
-                {return (store.availability == "") ?
+                {return (store.availability == "in-stock") ?
                 <Marker
                 key={index}
                 position={{ lat: store.lat, lng: store.lon }}
                 onClick={() => onSelectStore(store)}
+                zIndex={99999}
                 icon={{
                     url: '/zyn-available.png',
                     scaledSize: new window.google.maps.Size(30, 30), // Adjust the size as needed
@@ -114,6 +115,7 @@ export const ZynMapComponent: React.FC<MapComponentProps> = ({ stores }) => {
                 key={index}
                 position={{ lat: store.lat, lng: store.lon }}
                 onClick={() => onSelectStore(store)}
+                zIndex={10}
                 icon={{
                     url: '/zyn-unavailable.png',
                     scaledSize: new window.google.maps.Size(30, 30), // Adjust the size as needed
