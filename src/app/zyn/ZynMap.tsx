@@ -39,9 +39,9 @@ export const ZynMapComponent: React.FC<MapComponentProps> = ({ stores }) => {
     }
 
 
-    return <div className="flex-1 overflow-hidden relative">
+    return <div className="flex-1 overflow-hidden">
         { isLoaded && <GoogleMap
-        mapContainerStyle={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 0 }}
+        mapContainerStyle={{ width: '100%', height: '100%'}}
         center={mapCenter}
         zoom={5}
         onLoad={onMapLoad}
