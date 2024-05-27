@@ -6,7 +6,7 @@ export default async function ZynRadar() {
   const res = await fetch(`http://rx-radar.com/api/zyn-get-store`, { cache: 'no-store' }); // production
   const data = await res.json();
 
-  return <div className="flex flex-col h-screen">
+  return <div className="flex flex-col h-screen overflow-hidden">
     <Link href="/" className=" w-full py-1 bg-[#F94D00] text-white text-sm font-semibol flex justify-center">
       Can't find your ADHD meds? Click here
     </Link>
