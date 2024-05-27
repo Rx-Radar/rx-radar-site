@@ -133,7 +133,7 @@ export default function Index() {
   }
 
   // main hero content with medication search form
-  const HeroContent = () => {
+  const PrescriptionSearchSection = () => {
     return (
       <div ref={searchFormSectionRef} className="bg-[#eeeeee]">
         <div className="w-full min-h-screen flex flex-col md:flex-row justify-center items-center md:space-x-14 space-y-14 md:space-y-0 p-5">
@@ -180,14 +180,12 @@ export default function Index() {
           />
 
         </div>
-
-        {/* ...rest of page content here */}
       </div>
     );
   };
 
 
-  const Hero = () => {
+  const HeroSection = () => {
     return (
       <div className="relative w-full overflow-hidden min-h-screen bg-[#eeeeee]">
         <FallingPillsBackground />
@@ -208,22 +206,21 @@ export default function Index() {
   };
   
 
-
   // return main page contents
   return (
     <>
       <div className="h-screen w-screen flex flex-col overflow-y-auto">
         <NavigationBar />
-        <Hero/>
-        <HeroContent />
+        <HeroSection />
+        <PrescriptionSearchSection />
         <Footer />
-
-        <PhoneVerificationModal showModal={showVerificationModal} setShowModal={setShowVerificationModal} sendSearchRequest={makeInitSearchPost}/>
       </div>
 
+
+      <PhoneVerificationModal showModal={showVerificationModal} setShowModal={setShowVerificationModal} sendSearchRequest={makeInitSearchPost}/>
       { loading && <LoadingScreen /> }
-      <div id="recaptcha"/>
       <ToastContainer />
+      <div id="recaptcha" />
     </>
   );
 }
