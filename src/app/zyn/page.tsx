@@ -13,12 +13,13 @@ export default async function ZynRadar() {
 
     {/* header bar */}
     <div className="w-full, p-2 bg-[#f9f4f4] flex flex-wrap justify-between items-center">
-      <img
+      {/* <img
       style={{width: 150, height: 31}}
       src="/zynlogo.png"
       alt="Zyn Radar"
       className="object-cover w-full h-full filter"
-      /> 
+      />  */}
+      <p className="text-2xl font-bold ml-1">FindZyn.com</p>
     </div>
 
     {/* map */}
