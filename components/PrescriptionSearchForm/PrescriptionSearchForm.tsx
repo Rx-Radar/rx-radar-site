@@ -92,7 +92,7 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
   return (
       <div className={styles.prescription_search_form}>
 
-          <p style={{fontSize: 20, marginBottom: 10, marginTop: 10, color: '#F94D00', fontWeight: '600'}}>Begin a new search</p>
+          <p style={{fontSize: 20, marginBottom: 10, marginTop: 10, color: '#F94D00', fontWeight: '600'}}>Begin a New Search</p>
 
           {/* medication search input */}
           <SearchInput placeholder='Medication Name' searchList={medications} onChange={(value) => setMedication(value)} bottomSearchLink={new URL("https://forms.gle/YUuvJeVDiNb7Qdhr9")} bottomSearchText='Looking for a different medication?'/>
@@ -145,8 +145,11 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
           <div className="w-full p-3 bg-white rounded-xl flex flex-col md:flex-row md:space-x-2 space-x-0 space-y-2 md:space-y-0 justify-between md:items-center">
 
             <div className="flex flex-col">
-              <p className="font-bold text-xl">One Time Search</p>
-              <p className="font-medium text-xl">$5</p>
+              <p className="font-bold text-xl">Medication Search</p>
+              <p className="flex items-baseline">
+              <span className="text-xl font-medium">$5</span>
+              <span className="text-sm ml-2 text-[#cccccc]">0.5¢/pharmacy call</span>
+            </p>
             </div>
 
             <SearchForMedicationButton/>  
