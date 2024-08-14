@@ -59,11 +59,11 @@ export const PrescriptionSearchForm:React.FC<PrescriptionSearchFormProps> = ({lo
 
     return (
       <button 
-      className="flex items-center justify-center px-6 py-3 text-white transition-all duration-300 bg-orange-500 rounded-lg hover:bg-orange-600 hover:shadow-md focus:outline-none"
-      onClick={onClick}
+      className="flex items-center justify-center px-6 py-3 text-white transition-all duration-300 bg-red-500 rounded-lg hover:bg-orange-600 hover:shadow-md focus:outline-none"
+      onClick={() => {}}
       disabled={loading}
       >
-        <p style={{color: 'white', fontWeight: '600'}}>Start Search</p>
+        <p style={{color: 'white', fontWeight: '600'}}>Search Currently Disabled</p>
       </button>
     );
   }
