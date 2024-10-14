@@ -92,7 +92,7 @@ async function fetchPharmacy(pharmacyUuid: string) {
 async function fetchCallTranscript(blandCallId: string) {
     const options = { 
         method: 'GET',
-        headers: { authorization: 'sk-a8nctbcb5u3ko6jjwjlvs918uls8z3t2mp3ld6b004iqzcn51y7k7a1xj5rd12sf69' }
+        headers: { authorization: '********HIDDEN********' }
     };
     
     try {
